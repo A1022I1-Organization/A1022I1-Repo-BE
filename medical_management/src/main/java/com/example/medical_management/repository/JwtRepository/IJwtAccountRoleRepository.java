@@ -13,4 +13,6 @@ import java.util.List;
 public interface IJwtAccountRoleRepository extends JpaRepository<AccountRole,Long> {
     @Query(value = JwtQueryDB.GET_ACCOUNT_ROLE_BY_USERNAME, nativeQuery = true)
     List<AccountRole> getAccountRoleByUsername(@Param("username") String username);
+
+
 }
