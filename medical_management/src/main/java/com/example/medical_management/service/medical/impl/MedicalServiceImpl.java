@@ -25,16 +25,16 @@ public class MedicalServiceImpl implements IMedicalService {
 
     @Override
     public Page<MedicalSupplies> findPage(Pageable pageable) {
-        return null;
+        return medicalRepository.findAll(pageable);
     }
 
     @Override
     public MedicalSupplies findByMedical(int id) {
-        return null;
+        return medicalRepository.findById(id).orElse(null);
     }
 
     @Override
     public void delete(MedicalSupplies medicalSupplies) {
-
+        medicalRepository.delete(medicalSupplies);
     }
 }
