@@ -16,6 +16,7 @@ public class MedicalSupplies {
     private long price;
     private Date importDate;
     private String expiry;
+    private int quantity;
     @ManyToOne
     @JoinColumn(name = "category_id",referencedColumnName = "category_id")
     private Category category;
@@ -32,13 +33,14 @@ public class MedicalSupplies {
     public MedicalSupplies() {
     }
 
-    public MedicalSupplies(int id, String code, String name, long price, Date importDate, String expiry, Category category, Supplier supplier, Unit unit, Account account) {
+    public MedicalSupplies(int id, String code, String name, long price, Date importDate, String expiry, int quantity, Category category, Supplier supplier, Unit unit, Account account) {
         this.id = id;
         this.code = code;
         this.name = name;
         this.price = price;
         this.importDate = importDate;
         this.expiry = expiry;
+        this.quantity = quantity;
         this.category = category;
         this.supplier = supplier;
         this.unit = unit;
@@ -91,6 +93,14 @@ public class MedicalSupplies {
 
     public void setExpiry(String expiry) {
         this.expiry = expiry;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public Category getCategory() {
