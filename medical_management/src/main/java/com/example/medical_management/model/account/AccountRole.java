@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class AccountRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     @ManyToOne
     @JoinColumn(name = "role_id",referencedColumnName = "role_id")
     private AppRole appRole;
@@ -17,17 +17,17 @@ public class AccountRole {
     public AccountRole() {
     }
 
-    public AccountRole(int id, AppRole appRole, Account account) {
+    public AccountRole(Long id, AppRole appRole, Account account) {
         this.id = id;
         this.appRole = appRole;
         this.account = account;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

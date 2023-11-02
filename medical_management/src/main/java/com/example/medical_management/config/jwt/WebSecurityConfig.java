@@ -1,7 +1,7 @@
-package com.example.medical_management.configJwt;
+package com.example.medical_management.config.jwt;
 
 
-import com.example.medical_management.service.JwtService.JwtAccountDetailsService;
+import com.example.medical_management.service.account.JwtAccountDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

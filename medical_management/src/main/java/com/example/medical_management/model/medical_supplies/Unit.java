@@ -7,22 +7,22 @@ public class Unit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "unit_id")
-    private long id;
+    private Long id;
     private String name;
 
     public Unit() {
     }
 
-    public Unit(long id, String name) {
+    public Unit(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

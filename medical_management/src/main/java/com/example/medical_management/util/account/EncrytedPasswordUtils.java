@@ -1,4 +1,4 @@
-package com.example.medical_management.util.UtilJwt;
+package com.example.medical_management.util.account;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 

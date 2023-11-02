@@ -1,17 +1,13 @@
-package com.example.medical_management.configJwt;
+package com.example.medical_management.config.jwt;
 
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
+
 @Component
 public class JwtUtil implements Serializable {
     private  final long serialVersionUID = 1642004;

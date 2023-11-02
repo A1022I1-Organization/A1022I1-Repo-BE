@@ -1,8 +1,7 @@
-package com.example.medical_management.controller.RestJwtAccountController;
+package com.example.medical_management.controller.rest_account_controller;
 
-import com.example.medical_management.configJwt.JwtUtil;
+import com.example.medical_management.config.jwt.JwtUtil;
 import com.example.medical_management.payload.request.JwtRequest;
-import com.example.medical_management.service.JwtService.JwtAccountDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
