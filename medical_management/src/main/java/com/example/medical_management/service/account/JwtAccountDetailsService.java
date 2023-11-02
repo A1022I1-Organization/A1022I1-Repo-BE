@@ -1,7 +1,7 @@
-package com.example.medical_management.service.JwtService;
+package com.example.medical_management.service.account;
 
 import com.example.medical_management.model.account.AccountRole;
-import com.example.medical_management.repository.JwtRepository.IJwtAccountRoleRepository;
+import com.example.medical_management.repository.account.IJwtAccountRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

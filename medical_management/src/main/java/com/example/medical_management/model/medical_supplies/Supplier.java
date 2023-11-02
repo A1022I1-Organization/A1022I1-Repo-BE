@@ -7,22 +7,22 @@ public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "supplier_id")
-    private long id;
+    private Long id;
     private String name;
 
     public Supplier() {
     }
 
-    public Supplier(long id, String name) {
+    public Supplier(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -8,6 +8,6 @@ public interface IMedicalService {
     MedicalSupplies add(MedicalSupplies medical);
     MedicalSupplies update(MedicalSupplies medical);
     Page<MedicalSupplies> findPage (Pageable pageable);
-    MedicalSupplies findByMedical(int id);
+    MedicalSupplies findByMedical(Long id);
     void delete (MedicalSupplies medicalSupplies);
 }

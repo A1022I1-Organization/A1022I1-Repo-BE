@@ -1,4 +1,4 @@
-package com.example.medical_management.controller;
+package com.example.medical_management.controller.rest_medical_controller;
 
 import com.example.medical_management.dto.MedicalSuppliesDto;
 import com.example.medical_management.model.medical_supplies.Category;
@@ -22,8 +22,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@RestController
 @CrossOrigin("*")
-@org.springframework.web.bind.annotation.RestController
 @RequestMapping("api/medical")
 public class RestMedicalController {
 
@@ -86,7 +86,7 @@ public class RestMedicalController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("")
+    @GetMapping("/getCategory")
     public ResponseEntity<List<Category>> getCategory() {
         List<Category> categories = categoryService.findAllCategory();
         if (categories.isEmpty()) {
@@ -95,7 +95,7 @@ public class RestMedicalController {
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
-    @GetMapping("")
+    @GetMapping("/getSupplier")
     public ResponseEntity<List<Supplier>> getSupplier() {
         List<Supplier> suppliers = supplierService.findAllSupplier();
         if (suppliers.isEmpty()) {
@@ -104,7 +104,7 @@ public class RestMedicalController {
         return new ResponseEntity<>(suppliers, HttpStatus.OK);
     }
 
-    @GetMapping("")
+    @GetMapping("/getUnit")
     public ResponseEntity<List<Unit>> getUnit() {
         List<Unit> units = unitService.findAllUnit();
         if (units.isEmpty()) {
@@ -113,7 +113,7 @@ public class RestMedicalController {
         return new ResponseEntity<>(units, HttpStatus.OK);
     }
 
-    @GetMapping("")
+    @GetMapping("/getAll")
     public ResponseEntity<Page<MedicalSupplies>> getAll(@RequestBody Pageable pageable) {
         Page<MedicalSupplies> medicalSupplies = medicalService.findPage(pageable);
         if (medicalSupplies.isEmpty()) {
@@ -123,7 +123,7 @@ public class RestMedicalController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable int id) {
+    public ResponseEntity<?> delete(@PathVariable Long id) {
         MedicalSupplies medicalSupplies = medicalService.findByMedical(id);
         if (medicalSupplies==null){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -133,8 +133,8 @@ public class RestMedicalController {
         }
     }
 
-    @GetMapping("")
-    public ResponseEntity<?> getDetail(@PathVariable int id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getDetail(@PathVariable Long id) {
         MedicalSupplies medical = medicalService.findByMedical(id);
         if (medical==null){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

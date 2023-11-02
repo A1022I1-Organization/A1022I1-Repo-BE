@@ -29,7 +29,7 @@ public class MedicalServiceImpl implements IMedicalService {
     }
 
     @Override
-    public MedicalSupplies findByMedical(int id) {
+    public MedicalSupplies findByMedical(Long id) {
         return medicalRepository.findById(id).orElse(null);
     }
 
