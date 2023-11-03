@@ -1,4 +1,4 @@
-package com.example.medical_management.config.jwt;
+package com.example.medical_management.security;
 
 
 import org.springframework.security.core.AuthenticationException;

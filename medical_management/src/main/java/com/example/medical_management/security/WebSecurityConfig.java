@@ -1,4 +1,4 @@
-package com.example.medical_management.config.jwt;
+package com.example.medical_management.security;
 
 
 import com.example.medical_management.service.account.JwtAccountDetailsService;
@@ -55,15 +55,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity.cors().and().csrf().disable()
-
-                .authorizeRequests().antMatchers("/*").permitAll().
-                anyRequest().authenticated().and().
-
+                .authorizeRequests().antMatchers("/api/*","/*").permitAll().
+                anyRequest().authenticated().and().oauth2Login().and().
                 exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
+//        httpSecurity.authorizeRequests().anyRequest().authenticated().and().oauth2Login();
 
-        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+//        httpSecurity
+//                .authorizeRequests()
+//                .antMatchers("/api/*", "/*")
+//                .permitAll()
+//                .anyRequest()
+//                .authenticated()
+//                .and()
+//                .oauth2Login();
+
+
+//        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
 
