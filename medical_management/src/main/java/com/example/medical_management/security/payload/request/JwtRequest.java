@@ -1,4 +1,4 @@
-package com.example.medical_management.payload.request;
+package com.example.medical_management.security.payload.request;
 
 public class JwtRequest {
     private String username;
