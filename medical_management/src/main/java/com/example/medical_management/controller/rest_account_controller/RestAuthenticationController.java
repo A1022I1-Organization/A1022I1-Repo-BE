@@ -24,7 +24,7 @@ public class RestAuthenticationController {
 
 
     @PostMapping(value = "/login")
-    public ResponseEntity<?> saveUser(@RequestBody JwtRequest response) throws Exception {
+    public ResponseEntity<?> loginByAccount(@RequestBody JwtRequest response) throws Exception {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(response.getUsername(), response.getPassword()));
 
