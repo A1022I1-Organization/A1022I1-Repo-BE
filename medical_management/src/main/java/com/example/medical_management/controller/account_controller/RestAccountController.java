@@ -1,5 +1,6 @@
 package com.example.medical_management.controller.account_controller;
 
+import com.example.medical_management.model.account.Account;
 import com.example.medical_management.model.account.AccountRole;
 import com.example.medical_management.service.account.AccountService;
 import com.example.medical_management.service.email.EmailService;
@@ -8,10 +9,7 @@ import com.example.medical_management.util.password.RandomPassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/account")
@@ -36,4 +34,12 @@ public class RestAccountController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+//    @GetMapping("/AccountLogin")
+//    public ResponseEntity<Account> accountLogin() {
+//        System.out.println("username : " + principal.getName());
+//        Account account = accountService.;
+//
+//        return ResponseEntity.ok(account);
+//
+//    }
 }
