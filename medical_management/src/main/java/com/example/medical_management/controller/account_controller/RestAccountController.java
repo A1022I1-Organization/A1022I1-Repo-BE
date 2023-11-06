@@ -1,5 +1,4 @@
 package com.example.medical_management.controller.account_controller;
-
 import com.example.medical_management.dto.AccountRoleDto;
 import com.example.medical_management.model.account.Account;
 import com.example.medical_management.model.account.AccountRole;
@@ -10,6 +9,7 @@ import com.example.medical_management.util.password.RandomPassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -68,7 +68,6 @@ public class RestAccountController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-
     private Account convertToAccount(AccountRoleDto accountRoleDto) {
         Account account = new Account();
 

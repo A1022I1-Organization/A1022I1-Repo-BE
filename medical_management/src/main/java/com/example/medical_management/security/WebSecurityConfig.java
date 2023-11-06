@@ -46,6 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(jwtAccountDetailsService).passwordEncoder(passwordEncoder());
     }
+
     @Bean
     public PersistentTokenRepository persistentTokenRepository() {
         return new InMemoryTokenRepositoryImpl();
@@ -53,36 +54,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+//
+//           httpSecurity
+//            .authorizeRequests()
+//                .antMatchers("/**").permitAll()  // Cho phép tất cả đường dẫn
+//            .and()
+//            .csrf().disable()
+//            .oauth2Login()
+//                .defaultSuccessUrl("/successOauth", true);
+//
+//        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
-        httpSecurity.cors().and().csrf().disable()
+
+        httpSecurity
                 .authorizeRequests()
-                .antMatchers(
-                        "/api/login").permitAll()
+                .antMatchers("/api/login", "/login", "/successOauth","/logout").permitAll()
+                .antMatchers("/api/management", "/api/user").hasAnyRole("ADMIN", "EMPLOYEE")
                 .antMatchers("/api/**").hasRole("ADMIN")
-                .antMatchers("/api/management").hasAnyRole("ADMIN", "EMPLOYEE")
                 .anyRequest().authenticated()
                 .and()
+                .csrf().disable()
                 .oauth2Login()
-                .and()
-                .exceptionHandling()
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .loginPage("/Oauth/login")
+                .defaultSuccessUrl("/successOauth", true);
+        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
-//        httpSecurity.authorizeRequests().anyRequest().authenticated().and().oauth2Login();
-
-//        httpSecurity
-//                .authorizeRequests()
-//                .antMatchers("/api/*", "/*")
-//                .permitAll()
-//                .anyRequest()
-//                .authenticated()
-//                .and()
-//                .oauth2Login();
-
-
-//        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
 
