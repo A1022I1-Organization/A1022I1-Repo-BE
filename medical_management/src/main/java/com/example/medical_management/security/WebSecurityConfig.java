@@ -54,6 +54,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+
+
+        httpSecurity
+                .authorizeRequests()
+                .antMatchers("/**").permitAll();
+
+//        httpSecurity.cors().and().csrf().disable()
+//                .authorizeRequests().antMatchers("/api/*","/*").permitAll().
+//                anyRequest().authenticated().and()
+//               ;
+
+//        httpSecurity.authorizeRequests().anyRequest().authenticated().and().oauth2Login();
+
+//        httpSecurity
+//                .authorizeRequests()
+//                .antMatchers("/api/*", "/*")
+//                .permitAll()
+//                .anyRequest()
+//                .authenticated()
+//                .and()
+//                .oauth2Login();
+
+
 //
 //           httpSecurity
 //            .authorizeRequests()
@@ -63,23 +86,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //            .oauth2Login()
 //                .defaultSuccessUrl("/successOauth", true);
 //
+
 //        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
 
-        httpSecurity
-                .authorizeRequests()
-                .antMatchers("/api/login", "/login", "/successOauth","/logout").permitAll()
-                .antMatchers("/api/management", "/api/user").hasAnyRole("ADMIN", "EMPLOYEE")
-                .antMatchers("/api/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
-                .and()
-                .csrf().disable()
-                .oauth2Login()
-                .loginPage("/Oauth/login")
-                .defaultSuccessUrl("/successOauth", true);
-        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+//        httpSecurity
+//                .authorizeRequests()
+//                .antMatchers("/api/login", "/login", "/successOauth","/logout").permitAll()
+//                .antMatchers("/api/management", "/api/user").hasAnyRole("ADMIN", "EMPLOYEE")
+//                .antMatchers("/api/**").hasRole("ADMIN")
+//                .anyRequest().authenticated()
+//                .and()
+//                .csrf().disable()
+//                .oauth2Login()
+//                .loginPage("/Oauth/login")
+//                .defaultSuccessUrl("/successOauth", true);
+//        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+//
+//    }
+
 
     }
-
-
 }

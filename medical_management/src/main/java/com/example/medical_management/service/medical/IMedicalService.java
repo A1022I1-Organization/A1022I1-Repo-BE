@@ -7,7 +7,8 @@ import org.springframework.data.domain.Pageable;
 public interface IMedicalService {
     MedicalSupplies add(MedicalSupplies medical);
     MedicalSupplies update(MedicalSupplies medical);
-    Page<MedicalSupplies> findPage (Pageable pageable);
+    Page<MedicalSupplies> findOldSupplies (Pageable pageable);
+    Page<MedicalSupplies> findNewSupplies (Pageable pageable);
     MedicalSupplies findByMedical(Long id);
     void delete (MedicalSupplies medicalSupplies);
 }
