@@ -53,29 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-//
-//        httpSecurity
-//            .authorizeRequests()
-//                .antMatchers("/api/login", "/login", "/successOauth", "/logout").permitAll()
-//                .antMatchers("/api/management", "/api/user").hasAnyRole("ADMIN", "EMPLOYEE")
-//                .antMatchers("/api/**").hasRole("ADMIN")
-//                .anyRequest().authenticated()
-//                .and()
-//            .formLogin()
-//                .loginPage("/login") // Trang đăng nhập của bạn
-//                .permitAll()
-//                .defaultSuccessUrl("/successOauth", true)
-//                .and()
-//            .oauth2Login()
-//                .loginPage("/Oauth/login") // Trang đăng nhập OAuth2
-//                .defaultSuccessUrl("/successOauth", true)
-//                .and()
-//            .logout()
-//                .logoutUrl("/logout") // Đường dẫn đăng xuất
-//                .logoutSuccessUrl("/login") // Trang sau khi đăng xuất
-//                .permitAll()
-//                .and()
-//            .csrf().disable();
+
 
 
 
@@ -98,6 +76,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     }
-
-
 }
