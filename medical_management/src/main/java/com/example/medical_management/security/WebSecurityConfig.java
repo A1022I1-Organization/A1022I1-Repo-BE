@@ -46,6 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(jwtAccountDetailsService).passwordEncoder(passwordEncoder());
     }
+
     @Bean
     public PersistentTokenRepository persistentTokenRepository() {
         return new InMemoryTokenRepositoryImpl();
@@ -53,6 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+
 
         httpSecurity
                 .authorizeRequests()
@@ -75,8 +77,34 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .oauth2Login();
 
 
+//
+//           httpSecurity
+//            .authorizeRequests()
+//                .antMatchers("/**").permitAll()  // Cho phép tất cả đường dẫn
+//            .and()
+//            .csrf().disable()
+//            .oauth2Login()
+//                .defaultSuccessUrl("/successOauth", true);
+//
+
 //        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+
+//        httpSecurity
+//                .authorizeRequests()
+//                .antMatchers("/api/login", "/login", "/successOauth","/logout").permitAll()
+//                .antMatchers("/api/management", "/api/user").hasAnyRole("ADMIN", "EMPLOYEE")
+//                .antMatchers("/api/**").hasRole("ADMIN")
+//                .anyRequest().authenticated()
+//                .and()
+//                .csrf().disable()
+//                .oauth2Login()
+//                .loginPage("/Oauth/login")
+//                .defaultSuccessUrl("/successOauth", true);
+//        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+//
+//    }
+
+
     }
-
-
 }
