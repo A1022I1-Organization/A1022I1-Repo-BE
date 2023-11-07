@@ -1,7 +1,7 @@
 package com.example.medical_management.security;
 
 
-import com.example.medical_management.service.account.JwtAccountDetailsService;
+import com.example.medical_management.service.account.imlp.JwtAccountDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -55,29 +54,48 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 //
-//           httpSecurity
+//        httpSecurity
 //            .authorizeRequests()
-//                .antMatchers("/**").permitAll()  // Cho phép tất cả đường dẫn
-//            .and()
-//            .csrf().disable()
+//                .antMatchers("/api/login", "/login", "/successOauth", "/logout").permitAll()
+//                .antMatchers("/api/management", "/api/user").hasAnyRole("ADMIN", "EMPLOYEE")
+//                .antMatchers("/api/**").hasRole("ADMIN")
+//                .anyRequest().authenticated()
+//                .and()
+//            .formLogin()
+//                .loginPage("/login") // Trang đăng nhập của bạn
+//                .permitAll()
+//                .defaultSuccessUrl("/successOauth", true)
+//                .and()
 //            .oauth2Login()
-//                .defaultSuccessUrl("/successOauth", true);
-//
-//        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+//                .loginPage("/Oauth/login") // Trang đăng nhập OAuth2
+//                .defaultSuccessUrl("/successOauth", true)
+//                .and()
+//            .logout()
+//                .logoutUrl("/logout") // Đường dẫn đăng xuất
+//                .logoutSuccessUrl("/login") // Trang sau khi đăng xuất
+//                .permitAll()
+//                .and()
+//            .csrf().disable();
 
 
-        httpSecurity
+
+        httpSecurity.cors().and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/login", "/login", "/successOauth","/logout").permitAll()
-                .antMatchers("/api/management", "/api/user").hasAnyRole("ADMIN", "EMPLOYEE")
+                .antMatchers("/api/medical", "/api/user","/api/checkAuthen").hasAnyRole("ADMIN", "EMPLOYEE")
                 .antMatchers("/api/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable()
                 .oauth2Login()
-                .loginPage("/Oauth/login")
+                .loginPage("/Error")
                 .defaultSuccessUrl("/successOauth", true);
         httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+//        httpSecurity
+//                .authorizeRequests()
+//                .antMatchers("/**").permitAll();
+
 
     }
 

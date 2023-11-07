@@ -9,6 +9,9 @@ import com.example.medical_management.repository.account.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class AccountRoleServiceImpl implements AccountRoleService {
     @Autowired
@@ -32,5 +35,10 @@ public class AccountRoleServiceImpl implements AccountRoleService {
     @Override
     public void addNewAccount(Account account) {
         accountRepository.save(account);
+    }
+
+    @Override
+    public List<AccountRole> getAccountRoleByUsername(String username) {
+        return accountRoleRepository.getAccountRoleByUsername(username);
     }
 }
