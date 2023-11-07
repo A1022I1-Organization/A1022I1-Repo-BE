@@ -15,7 +15,7 @@ public class OAuth2Controller {
 
     @RequestMapping("/successOauth")
     public ResponseEntity<?> handleSuccessfulOAuth2Login(HttpServletResponse response, Principal principal) throws IOException {
-        // Chuyển đối tượng Principal thành chuỗi JSON
+
         ObjectMapper objectMapper = new ObjectMapper();
         String principalJson = objectMapper.writeValueAsString(principal);
         System.out.println(principalJson);
