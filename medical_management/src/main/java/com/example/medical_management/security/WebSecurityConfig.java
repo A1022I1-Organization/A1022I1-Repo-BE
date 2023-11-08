@@ -57,22 +57,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-        httpSecurity.cors().and().csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/api/login", "/login", "/successOauth","/logout").permitAll()
-                .antMatchers("/api/medical", "/api/user","/api/checkAuthen").hasAnyRole("ADMIN", "EMPLOYEE")
-                .antMatchers("/api/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
-                .and()
-                .csrf().disable()
-                .oauth2Login()
-                .loginPage("/Error")
-                .defaultSuccessUrl("/successOauth", true);
-        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
-//        httpSecurity
+//        httpSecurity.cors().and().csrf().disable()
 //                .authorizeRequests()
-//                .antMatchers("/**").permitAll();
+//                .antMatchers("/api/login", "/login", "/successOauth","/logout").permitAll()
+//                .antMatchers("/api/supply/**").hasAnyRole("EMPLOYEE","ADMIN")
+//                .antMatchers("/api/**").hasRole("ADMIN")
+//                .anyRequest().authenticated()
+//                .and()
+//                .csrf().disable();
+//        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+        httpSecurity
+                .authorizeRequests()
+                .antMatchers("/**").permitAll();
 
 
     }
