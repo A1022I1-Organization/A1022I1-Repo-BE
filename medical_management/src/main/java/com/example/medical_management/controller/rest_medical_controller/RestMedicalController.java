@@ -1,6 +1,7 @@
 package com.example.medical_management.controller.rest_medical_controller;
 
 import com.example.medical_management.dto.MedicalSuppliesDto;
+import com.example.medical_management.model.account.Account;
 import com.example.medical_management.model.medical_supplies.Category;
 import com.example.medical_management.model.medical_supplies.MedicalSupplies;
 import com.example.medical_management.model.medical_supplies.Supplier;
@@ -39,13 +40,14 @@ public class RestMedicalController {
     @Autowired
     private IUnitService unitService;
 
-    @PostMapping("")
+    @PostMapping("/add")
     public ResponseEntity<?> create(@RequestBody MedicalSuppliesDto medicalSuppliesDto,
                                     BindingResult bindingResult) {
 
         new MedicalSuppliesDto().validate(medicalSuppliesDto, bindingResult);
         Map<String, Object> errorInput = new HashMap<>();
 
+        Account account = new Account();
         //Check validate
         if (bindingResult.hasErrors()) {
             for (FieldError error : bindingResult.getFieldErrors()) {

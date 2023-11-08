@@ -3,7 +3,7 @@ package com.example.medical_management.model.medical_supplies;
 import com.example.medical_management.model.account.Account;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 public class MedicalSupplies {
@@ -14,9 +14,11 @@ public class MedicalSupplies {
     private String picture;
     private String code;
     private String name;
-    private long price;
-    private Date importDate;
-    private String expiry;
+    private String price;
+    @Column(columnDefinition = "DATE")
+    private java.sql.Date importDate;
+    @Column(columnDefinition = "DATE")
+    private java.sql.Date expiry;
     private int quantity;
     @ManyToOne
     @JoinColumn(name = "category_id",referencedColumnName = "category_id")
@@ -27,14 +29,14 @@ public class MedicalSupplies {
     @ManyToOne
     @JoinColumn(name = "unit_id",referencedColumnName = "unit_id")
     private Unit unit;
-    @ManyToOne
-    @JoinColumn(name = "account_id",referencedColumnName = "account_id")
-    private Account account;
+//    @ManyToOne
+//    @JoinColumn(name = "account_id",referencedColumnName = "account_id")
+//    private Account account;
 
     public MedicalSupplies() {
     }
 
-    public MedicalSupplies(Long id, String picture, String code, String name, long price, Date importDate, String expiry, int quantity, Category category, Supplier supplier, Unit unit, Account account) {
+    public MedicalSupplies(Long id, String picture, String code, String name, String price, Date importDate, Date expiry, int quantity, Category category, Supplier supplier, Unit unit) {
         this.id = id;
         this.picture = picture;
         this.code = code;
@@ -46,7 +48,6 @@ public class MedicalSupplies {
         this.category = category;
         this.supplier = supplier;
         this.unit = unit;
-        this.account = account;
     }
 
     public Long getId() {
@@ -81,11 +82,11 @@ public class MedicalSupplies {
         this.name = name;
     }
 
-    public long getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -97,11 +98,11 @@ public class MedicalSupplies {
         this.importDate = importDate;
     }
 
-    public String getExpiry() {
+    public Date getExpiry() {
         return expiry;
     }
 
-    public void setExpiry(String expiry) {
+    public void setExpiry(Date expiry) {
         this.expiry = expiry;
     }
 
@@ -135,13 +136,5 @@ public class MedicalSupplies {
 
     public void setUnit(Unit unit) {
         this.unit = unit;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
     }
 }
