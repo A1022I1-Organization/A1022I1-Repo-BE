@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,20 +33,25 @@ public class RestAuthenticationController {
 
     @PostMapping(value = "/login")
     public ResponseEntity<?> loginByAccount(@RequestBody AccountRequest response) throws Exception {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(response.getUsername(), response.getPassword()));
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(response.getUsername(), response.getPassword()));
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String jwt = jwtUtil.generateJwtToken(response.getUsername());
-        List<AccountRole> accountRole = accountRoleService.getAccountRoleByUsername(response.getUsername());
-        AccountRole  account  = new AccountRole();
-        for (AccountRole accountRole1: accountRole) {
-            account.setAppAccount(accountRole1.getAppAccount());
-            account.setAppRole(accountRole1.getAppRole());
+            String jwt = jwtUtil.generateJwtToken(response.getUsername());
+            List<AccountRole> accountRole = accountRoleService.getAccountRoleByUsername(response.getUsername());
+            AccountRole account = new AccountRole();
+            for (AccountRole accountRole1 : accountRole) {
+                account.setAppAccount(accountRole1.getAppAccount());
+                account.setAppRole(accountRole1.getAppRole());
+            }
+            JWTResponse jwtResponse = new JWTResponse(jwt, account);
+            return ResponseEntity.ok(jwtResponse);
+        } catch (AuthenticationException e) {
+            // Xử lý khi đăng nhập không thành công ở đây
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Tên đăng nhập hoặc mật khẩu không đúng.");
         }
-        JWTResponse jwtResponse = new JWTResponse(jwt,account);
-        return ResponseEntity.ok(jwtResponse);
     }
     @GetMapping(value = "/logout")
     public ResponseEntity<?> logout(HttpServletRequest request) {
@@ -57,13 +63,12 @@ public class RestAuthenticationController {
 //        System.out.println("username : " + principal.getName());
         return principal;
     }
-    @PostMapping("/getAccount")
-    public ResponseEntity<?> getAccount(@RequestBody JwtRequest jwt) {
-        String username = jwtUtil.getUserNameFromJwtToken(jwt.getToken());
 
+    @GetMapping("/getAccount/{username}")
+    public ResponseEntity<?> getAccount(@PathVariable String username) {
         List<AccountRole> accountRole = accountRoleService.getAccountRoleByUsername(username);
-        AccountRole  account  = new AccountRole();
-        for (AccountRole accountRole1: accountRole) {
+        AccountRole account = new AccountRole();
+        for (AccountRole accountRole1 : accountRole) {
             account.setAppAccount(accountRole1.getAppAccount());
             account.setAppRole(accountRole1.getAppRole());
         }
