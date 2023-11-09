@@ -1,6 +1,5 @@
 package com.example.medical_management.model.account;
 
-import com.example.medical_management.model.medical_supplies.MedicalSupplies;
 
 import javax.persistence.*;
 import java.util.Date;

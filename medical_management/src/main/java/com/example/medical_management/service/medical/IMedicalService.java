@@ -3,6 +3,9 @@ package com.example.medical_management.service.medical;
 import com.example.medical_management.model.medical_supplies.MedicalSupplies;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 public interface IMedicalService {
     MedicalSupplies add(MedicalSupplies medical);
@@ -11,4 +14,5 @@ public interface IMedicalService {
     Page<MedicalSupplies> findNewSupplies (Pageable pageable);
     MedicalSupplies findByMedical(Long id);
     void delete (MedicalSupplies medicalSupplies);
+    List<MedicalSupplies> getAllListWithPage(String category, int page);
 }
