@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MedicalServiceImpl implements IMedicalService {
 
@@ -41,5 +43,10 @@ public class MedicalServiceImpl implements IMedicalService {
     @Override
     public void delete(MedicalSupplies medicalSupplies) {
         medicalRepository.delete(medicalSupplies);
+    }
+
+    @Override
+    public List<MedicalSupplies> getAllListWithPage(String category, int page) {
+       return medicalRepository.getAllListWithPage(category,page);
     }
 }
