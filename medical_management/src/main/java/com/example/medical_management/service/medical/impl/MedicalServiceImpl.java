@@ -50,4 +50,9 @@ public class MedicalServiceImpl implements IMedicalService {
     public List<MedicalSupplies> findExpiredSupplies() {
         return medicalRepository.findExpiredSupplies();
     }
+
+    @Override
+    public List<MedicalSupplies> getAllListWithPage(String category, int page) {
+       return medicalRepository.getAllListWithPage(category,page);
+    }
 }

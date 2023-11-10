@@ -3,6 +3,9 @@ package com.example.medical_management.service.medical;
 import com.example.medical_management.model.medical_supplies.MedicalSupplies;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 import java.util.List;
 
@@ -15,4 +18,5 @@ public interface IMedicalService {
     void delete (MedicalSupplies medicalSupplies);
 
     List<MedicalSupplies> findExpiredSupplies();
+    List<MedicalSupplies> getAllListWithPage(String category, int page);
 }
