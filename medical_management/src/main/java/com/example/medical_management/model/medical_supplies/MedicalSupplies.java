@@ -3,7 +3,7 @@ package com.example.medical_management.model.medical_supplies;
 import com.example.medical_management.model.account.Account;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 public class MedicalSupplies {
@@ -15,10 +15,12 @@ public class MedicalSupplies {
     private String picture;
     private String code;
     private String name;
-    private long price;
+    private String price;
+    @Column(columnDefinition = "DATE")
     private Date importDate;
-    private String expiry;
-    private int quantity;
+    @Column(columnDefinition = "DATE")
+    private Date expiry;
+    private String quantity;
     @ManyToOne
     @JoinColumn(name = "category_id",referencedColumnName = "category_id")
     private Category category;
@@ -35,7 +37,7 @@ public class MedicalSupplies {
     public MedicalSupplies() {
     }
 
-    public MedicalSupplies(Long id, String picture, String code, String name, long price, Date importDate, String expiry, int quantity, Category category, Supplier supplier, Unit unit, Account account) {
+    public MedicalSupplies(Long id, String picture, String code, String name, String price, Date importDate, Date expiry, String quantity, Category category, Supplier supplier, Unit unit, Account account) {
         this.id = id;
         this.picture = picture;
         this.code = code;
@@ -82,11 +84,11 @@ public class MedicalSupplies {
         this.name = name;
     }
 
-    public long getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -98,19 +100,19 @@ public class MedicalSupplies {
         this.importDate = importDate;
     }
 
-    public String getExpiry() {
+    public Date getExpiry() {
         return expiry;
     }
 
-    public void setExpiry(String expiry) {
+    public void setExpiry(Date expiry) {
         this.expiry = expiry;
     }
 
-    public int getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 

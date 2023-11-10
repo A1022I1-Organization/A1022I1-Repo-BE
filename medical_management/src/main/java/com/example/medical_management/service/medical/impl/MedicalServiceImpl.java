@@ -45,7 +45,6 @@ public class MedicalServiceImpl implements IMedicalService {
         medicalRepository.delete(medicalSupplies);
     }
 
-
     @Override
     public List<MedicalSupplies> findExpiredSupplies() {
         return medicalRepository.findExpiredSupplies();

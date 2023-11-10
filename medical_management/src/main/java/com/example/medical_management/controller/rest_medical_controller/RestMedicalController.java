@@ -1,10 +1,12 @@
 package com.example.medical_management.controller.rest_medical_controller;
 
 import com.example.medical_management.dto.MedicalSuppliesDto;
+import com.example.medical_management.model.account.Account;
 import com.example.medical_management.model.medical_supplies.Category;
 import com.example.medical_management.model.medical_supplies.MedicalSupplies;
 import com.example.medical_management.model.medical_supplies.Supplier;
 import com.example.medical_management.model.medical_supplies.Unit;
+import com.example.medical_management.service.account.IAccountService;
 import com.example.medical_management.service.medical.ICategoryService;
 import com.example.medical_management.service.medical.IMedicalService;
 import com.example.medical_management.service.medical.ISupplierService;
@@ -40,7 +42,10 @@ public class RestMedicalController {
     @Autowired
     private IUnitService unitService;
 
-    @PostMapping("")
+    @Autowired
+    private IAccountService accountService;
+
+    @PostMapping("/add")
     public ResponseEntity<?> create(@RequestBody MedicalSuppliesDto medicalSuppliesDto,
                                     BindingResult bindingResult) {
 
@@ -64,7 +69,7 @@ public class RestMedicalController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PatchMapping("")
+    @PatchMapping("/update")
     public ResponseEntity<?> update(@RequestBody MedicalSuppliesDto medicalSuppliesDto,
                                     BindingResult bindingResult) {
         new MedicalSuppliesDto().validate(medicalSuppliesDto, bindingResult);
@@ -112,6 +117,15 @@ public class RestMedicalController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(units, HttpStatus.OK);
+    }
+
+    @GetMapping("/getAccount")
+    public ResponseEntity<List<Account>> getAccount() {
+        List<Account> accounts = accountService.findAllAccount();
+        if (accounts.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
 
     @GetMapping("/oldSupplies")
