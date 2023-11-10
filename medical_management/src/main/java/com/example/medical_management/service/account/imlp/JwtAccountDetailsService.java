@@ -1,7 +1,7 @@
-package com.example.medical_management.service.account;
+package com.example.medical_management.service.account.imlp;
 
 import com.example.medical_management.model.account.AccountRole;
-import com.example.medical_management.repository.account.IJwtAccountRoleRepository;
+import com.example.medical_management.repository.account.AccountRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,10 +17,10 @@ import java.util.List;
 @Service
 public class JwtAccountDetailsService implements UserDetailsService {
     @Autowired
-    private IJwtAccountRoleRepository iJwtAccountRoleRepository;
+    private AccountRoleRepository accountRoleRepository;
     @Override
     public UserDetails loadUserByUsername(String accountName) throws UsernameNotFoundException {
-        List<AccountRole> accountRole = iJwtAccountRoleRepository.getAccountRoleByUsername(accountName);
+        List<AccountRole> accountRole = accountRoleRepository.getAccountRoleByUsername(accountName);
         List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
         if (accountRole != null){
             for (AccountRole account : accountRole) {

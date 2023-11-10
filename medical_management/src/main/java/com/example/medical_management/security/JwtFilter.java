@@ -1,6 +1,6 @@
 package com.example.medical_management.security;
 
-import com.example.medical_management.service.account.JwtAccountDetailsService;
+import com.example.medical_management.service.account.imlp.JwtAccountDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,7 +28,7 @@ public class JwtFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
         try {
             String jwt = parseJwt(request);
-            if (jwt != null && jwtUtil.validateJwtToken(jwt)) {
+            if (jwt != null ) {
                 String username = jwtUtil.getUserNameFromJwtToken(jwt);
 
                 UserDetails userDetails = jwtAccountDetailsService.loadUserByUsername(username);

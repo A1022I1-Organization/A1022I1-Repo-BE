@@ -16,10 +16,10 @@ public class MedicalSupplies {
     private String name;
     private String price;
     @Column(columnDefinition = "DATE")
-    private java.sql.Date importDate;
+    private Date importDate;
     @Column(columnDefinition = "DATE")
-    private java.sql.Date expiry;
-    private int quantity;
+    private Date expiry;
+    private String quantity;
     @ManyToOne
     @JoinColumn(name = "category_id",referencedColumnName = "category_id")
     private Category category;
@@ -29,14 +29,14 @@ public class MedicalSupplies {
     @ManyToOne
     @JoinColumn(name = "unit_id",referencedColumnName = "unit_id")
     private Unit unit;
-//    @ManyToOne
-//    @JoinColumn(name = "account_id",referencedColumnName = "account_id")
-//    private Account account;
+    @ManyToOne
+    @JoinColumn(name = "account_id",referencedColumnName = "account_id")
+    private Account account;
 
     public MedicalSupplies() {
     }
 
-    public MedicalSupplies(Long id, String picture, String code, String name, String price, Date importDate, Date expiry, int quantity, Category category, Supplier supplier, Unit unit) {
+    public MedicalSupplies(Long id, String picture, String code, String name, String price, Date importDate, Date expiry, String quantity, Category category, Supplier supplier, Unit unit, Account account) {
         this.id = id;
         this.picture = picture;
         this.code = code;
@@ -48,6 +48,7 @@ public class MedicalSupplies {
         this.category = category;
         this.supplier = supplier;
         this.unit = unit;
+        this.account = account;
     }
 
     public Long getId() {
@@ -106,11 +107,11 @@ public class MedicalSupplies {
         this.expiry = expiry;
     }
 
-    public int getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 
@@ -136,5 +137,13 @@ public class MedicalSupplies {
 
     public void setUnit(Unit unit) {
         this.unit = unit;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

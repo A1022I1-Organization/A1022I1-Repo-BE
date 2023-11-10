@@ -1,7 +1,7 @@
 package com.example.medical_management.security;
 
 
-import com.example.medical_management.service.account.JwtAccountDetailsService;
+import com.example.medical_management.service.account.imlp.JwtAccountDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -46,6 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(jwtAccountDetailsService).passwordEncoder(passwordEncoder());
     }
+
     @Bean
     public PersistentTokenRepository persistentTokenRepository() {
         return new InMemoryTokenRepositoryImpl();
@@ -53,29 +53,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                .authorizeRequests()
-                .antMatchers("/api/**").permitAll();
+
 //        httpSecurity.cors().and().csrf().disable()
-//                .authorizeRequests().antMatchers("/api/*","/*").permitAll().
-//                anyRequest().authenticated().and().oauth2Login().and().
-//                exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-//        httpSecurity.authorizeRequests().anyRequest().authenticated().and().oauth2Login();
-
-//        httpSecurity
 //                .authorizeRequests()
-//                .antMatchers("/api/*", "/*")
-//                .permitAll()
-//                .anyRequest()
-//                .authenticated()
+//                .antMatchers("/api/login", "/login", "/successOauth","/logout").permitAll()
+//                .antMatchers("/api/supply/**").hasAnyRole("EMPLOYEE","ADMIN")
+//                .antMatchers("/api/**").hasRole("ADMIN")
+//                .anyRequest().authenticated()
 //                .and()
-//                .oauth2Login();
-
-
+//                .csrf().disable();
 //        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+        httpSecurity.cors().and().csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/**").permitAll();
     }
-
-
 }

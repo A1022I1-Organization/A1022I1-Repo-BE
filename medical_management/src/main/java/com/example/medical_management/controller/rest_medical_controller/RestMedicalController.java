@@ -6,6 +6,7 @@ import com.example.medical_management.model.medical_supplies.Category;
 import com.example.medical_management.model.medical_supplies.MedicalSupplies;
 import com.example.medical_management.model.medical_supplies.Supplier;
 import com.example.medical_management.model.medical_supplies.Unit;
+import com.example.medical_management.service.account.IAccountService;
 import com.example.medical_management.service.medical.ICategoryService;
 import com.example.medical_management.service.medical.IMedicalService;
 import com.example.medical_management.service.medical.ISupplierService;
@@ -13,6 +14,7 @@ import com.example.medical_management.service.medical.IUnitService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +27,7 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("api/medical")
+@RequestMapping("api/supply")
 public class RestMedicalController {
 
     @Autowired
@@ -40,6 +42,9 @@ public class RestMedicalController {
     @Autowired
     private IUnitService unitService;
 
+    @Autowired
+    private IAccountService accountService;
+
     @PostMapping("/add")
     public ResponseEntity<?> create(@RequestBody MedicalSuppliesDto medicalSuppliesDto,
                                     BindingResult bindingResult) {
@@ -47,7 +52,6 @@ public class RestMedicalController {
         new MedicalSuppliesDto().validate(medicalSuppliesDto, bindingResult);
         Map<String, Object> errorInput = new HashMap<>();
 
-        Account account = new Account();
         //Check validate
         if (bindingResult.hasErrors()) {
             for (FieldError error : bindingResult.getFieldErrors()) {
@@ -65,7 +69,7 @@ public class RestMedicalController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PatchMapping("")
+    @PatchMapping("/update")
     public ResponseEntity<?> update(@RequestBody MedicalSuppliesDto medicalSuppliesDto,
                                     BindingResult bindingResult) {
         new MedicalSuppliesDto().validate(medicalSuppliesDto, bindingResult);
@@ -115,13 +119,37 @@ public class RestMedicalController {
         return new ResponseEntity<>(units, HttpStatus.OK);
     }
 
-    @GetMapping("/getAll")
-    public ResponseEntity<Page<MedicalSupplies>> getAll(@RequestBody Pageable pageable) {
-        Page<MedicalSupplies> medicalSupplies = medicalService.findPage(pageable);
-        if (medicalSupplies.isEmpty()) {
+    @GetMapping("/getAccount")
+    public ResponseEntity<List<Account>> getAccount() {
+        List<Account> accounts = accountService.findAllAccount();
+        if (accounts.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(medicalSupplies, HttpStatus.OK);
+        return new ResponseEntity<>(accounts, HttpStatus.OK);
+    }
+
+    @GetMapping("/oldSupplies")
+    public ResponseEntity<Page<MedicalSupplies>> getOldSupplies(@RequestParam(defaultValue = "0") int page,
+                                                                @RequestParam(defaultValue = "5") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<MedicalSupplies> oldSupplies = medicalService.findOldSupplies(pageable);
+
+        if (oldSupplies.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(oldSupplies, HttpStatus.OK);
+    }
+
+    @GetMapping("/newSupplies")
+    public ResponseEntity<Page<MedicalSupplies>> getNewSupplies(@RequestParam(defaultValue = "0") int page,
+                                                                @RequestParam(defaultValue = "5") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<MedicalSupplies> newSupplies = medicalService.findNewSupplies(pageable);
+
+        if (newSupplies.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(newSupplies, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
