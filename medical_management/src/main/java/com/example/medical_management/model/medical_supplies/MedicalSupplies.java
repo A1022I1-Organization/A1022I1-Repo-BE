@@ -11,6 +11,7 @@ public class MedicalSupplies {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "medical_supplies_id")
     private Long id;
+    @Column(columnDefinition = "longtext")
     private String picture;
     private String code;
     private String name;

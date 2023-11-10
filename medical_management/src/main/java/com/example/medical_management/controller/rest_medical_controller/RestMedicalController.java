@@ -27,7 +27,7 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("api/supply")
+@RequestMapping("/api/supply")
 public class RestMedicalController {
 
     @Autowired
@@ -139,7 +139,16 @@ public class RestMedicalController {
         }
         return new ResponseEntity<>(oldSupplies, HttpStatus.OK);
     }
+    @GetMapping("/list")
+    public ResponseEntity<List<MedicalSupplies>> getPageSupplies(@RequestParam(name = "c",defaultValue = "") String category,
+                                                                 @RequestParam(name = "p",defaultValue = "6") int page) {
+         List<MedicalSupplies> oldSupplies = medicalService.getAllListWithPage(category,page);
 
+        if (oldSupplies.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(oldSupplies, HttpStatus.OK);
+    }
     @GetMapping("/newSupplies")
     public ResponseEntity<Page<MedicalSupplies>> getNewSupplies(@RequestParam(defaultValue = "0") int page,
                                                                 @RequestParam(defaultValue = "5") int size) {
@@ -173,4 +182,14 @@ public class RestMedicalController {
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }
+
+    @GetMapping("/expired-supplies")
+    public ResponseEntity<List<MedicalSupplies>> getExpriredSupplies() {
+        List<MedicalSupplies> expiredSupplies = medicalService.findExpiredSupplies();
+        if (expiredSupplies == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(expiredSupplies, HttpStatus.OK);
+    }
+
 }
