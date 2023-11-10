@@ -201,7 +201,7 @@ public class AccountRoleDto implements Validator {
         // SỐ ĐIỆN THOẠI
         if (accountRoleDto.getPhone() == null) {
             errors.rejectValue("phone", null, "Số điện thoại không được rỗng");
-        } else if (!accountRoleDto.getPhone().matches("^(0[1-9])+([0-9]{8,9})$")) {
+        } else if (!accountRoleDto.getPhone().matches(" ")) {
             errors.rejectValue("phone", null, "Số điện thoại không đúng định dạng");
         }
 

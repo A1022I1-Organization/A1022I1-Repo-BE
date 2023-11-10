@@ -159,4 +159,14 @@ public class RestMedicalController {
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }
+
+    @GetMapping("/expired-supplies")
+    public ResponseEntity<List<MedicalSupplies>> getExpriredSupplies() {
+        List<MedicalSupplies> expiredSupplies = medicalService.findExpiredSupplies();
+        if (expiredSupplies == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(expiredSupplies, HttpStatus.OK);
+    }
+
 }

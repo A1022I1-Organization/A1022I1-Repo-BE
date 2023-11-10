@@ -7,10 +7,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 public interface IMedicalRepository extends JpaRepository<MedicalSupplies, Long> {
     @Query(value = QuerySupplies.FIND_OLD_SUPPLIES_PAGE, nativeQuery = true)
     Page<MedicalSupplies> findOldSupplies(Pageable pageable);
 
     @Query(value = QuerySupplies.FIND_NEW_SUPPLIES_PAGE, nativeQuery = true)
     Page<MedicalSupplies> findNewSupplies(Pageable pageable);
+
+    @Query(value = QuerySupplies.GET_EXPIRED_SUPPLIES, nativeQuery = true)
+    List<MedicalSupplies> findExpiredSupplies();
 }
