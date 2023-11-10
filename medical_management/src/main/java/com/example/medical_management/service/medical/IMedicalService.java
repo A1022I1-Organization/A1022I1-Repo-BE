@@ -7,6 +7,8 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+import java.util.List;
+
 public interface IMedicalService {
     MedicalSupplies add(MedicalSupplies medical);
     MedicalSupplies update(MedicalSupplies medical);
@@ -14,5 +16,7 @@ public interface IMedicalService {
     Page<MedicalSupplies> findNewSupplies (Pageable pageable);
     MedicalSupplies findByMedical(Long id);
     void delete (MedicalSupplies medicalSupplies);
+
+    List<MedicalSupplies> findExpiredSupplies();
     List<MedicalSupplies> getAllListWithPage(String category, int page);
 }
