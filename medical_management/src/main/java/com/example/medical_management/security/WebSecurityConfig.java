@@ -57,19 +57,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
+        httpSecurity.cors().and().csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/api/login", "/login", "/successOauth","/logout").permitAll()
+                .antMatchers("/api/supply/**").hasAnyRole("EMPLOYEE","ADMIN")
+                .antMatchers("/api/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
+                .and()
+                .csrf().disable();
+        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+
+
 //        httpSecurity.cors().and().csrf().disable()
 //                .authorizeRequests()
-//                .antMatchers("/api/login", "/login", "/successOauth","/logout").permitAll()
-//                .antMatchers("/api/supply/**").hasAnyRole("EMPLOYEE","ADMIN")
-//                .antMatchers("/api/**").hasRole("ADMIN")
-//                .anyRequest().authenticated()
-//                .and()
-//                .csrf().disable();
-//        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
-        httpSecurity
-                .authorizeRequests()
-                .antMatchers("/**").permitAll();
+//                .antMatchers("/**").permitAll();
 
 
     }
