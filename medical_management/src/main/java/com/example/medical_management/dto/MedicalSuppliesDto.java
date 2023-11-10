@@ -4,24 +4,31 @@ import com.example.medical_management.model.account.Account;
 import com.example.medical_management.model.medical_supplies.Category;
 import com.example.medical_management.model.medical_supplies.Supplier;
 import com.example.medical_management.model.medical_supplies.Unit;
+import com.example.medical_management.service.medical.IMedicalService;
+import com.example.medical_management.service.medical.impl.MedicalServiceImpl;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.regex.Pattern;
 
 public class MedicalSuppliesDto implements Validator {
     private int id;
     private String code;
     private String name;
-    private long price;
+    private String picture;
+    private String price;
+    @NotNull(message = "Ngày nhập hàng không được để trống")
     private Date importDate;
+    @NotNull(message = "Hạn sử dụng không được để trống")
     private Date expiry;
-    private int quantity;
+    private String quantity;
     private Category category;
     private Supplier supplier;
     private Unit unit;
@@ -30,10 +37,11 @@ public class MedicalSuppliesDto implements Validator {
     public MedicalSuppliesDto() {
     }
 
-    public MedicalSuppliesDto(int id, String code, String name, long price, Date importDate, Date expiry, int quantity, Category category, Supplier supplier, Unit unit, Account account) {
+    public MedicalSuppliesDto(int id, String code, String name, String picture, String price, Date importDate, Date expiry, String quantity, Category category, Supplier supplier, Unit unit, Account account) {
         this.id = id;
         this.code = code;
         this.name = name;
+        this.picture = picture;
         this.price = price;
         this.importDate = importDate;
         this.expiry = expiry;
@@ -68,11 +76,19 @@ public class MedicalSuppliesDto implements Validator {
         this.name = name;
     }
 
-    public long getPrice() {
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -92,11 +108,11 @@ public class MedicalSuppliesDto implements Validator {
         this.expiry = expiry;
     }
 
-    public int getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 
@@ -136,58 +152,55 @@ public class MedicalSuppliesDto implements Validator {
     public boolean supports(Class<?> clazz) {
         return false;
     }
-
     @Override
     public void validate(Object target, Errors errors) {
         MedicalSuppliesDto medicalDto = (MedicalSuppliesDto) target;
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+
+        long millis = System.currentTimeMillis();
+        java.sql.Date nowDate = new java.sql.Date(millis);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(nowDate);
+        calendar.add(Calendar.MONTH, 6);
+
+        Date newDate = new Date(calendar.getTimeInMillis());
+
+        // Validate Ảnh (picture)
+        if (medicalDto.getPicture().isEmpty()) {
+            errors.rejectValue("picture", null, "Ảnh vật tư không được để trống");
+        }
+
         // Validate Mã vật tư (code)
-        if (medicalDto.getCode() == null || !medicalDto.getCode().matches("^MVT-[0-9]{4}$")) {
+        if (medicalDto.getCode().isEmpty()) {
+            errors.rejectValue("code", null, "Mã vật tư không được để trống");
+        } else if (!medicalDto.getCode().matches("^MVT-[0-9]{4}$")){
             errors.rejectValue("code", null, "Mã vật tư phải theo định dạng MVT-XXXX");
         }
-        // Validate Tên vật tư (name)
-        if (medicalDto.getName() == null || medicalDto.getName().length() > 100) {
-            errors.rejectValue("name", null, "Tên vật tư không được vượt quá 100 ký tự");
+//         Validate Tên vật tư (name)
+        if (medicalDto.getName().isEmpty()) {
+            errors.rejectValue("name", null, "Tên vật tư không được để trống");
+        } else if (medicalDto.getName().length() > 100 || medicalDto.getName().length() < 2){
+            errors.rejectValue("name", null, "Tên vật tư không được lớn hơn 100 và bé hơn 2 ký tự");
         }
-        // Validate Giá thành (price)
-        if (medicalDto.getPrice() > 0) {
-            errors.rejectValue("price", null, "Giá thành phải là số nguyên dương");
+//         Validate Giá thành (price)
+        if (medicalDto.getPrice().isEmpty()) {
+            errors.rejectValue("name", null, "Tên vật tư không được để trống");
+        } else if (!medicalDto.getPrice().matches("^[1-9]\\d*$")){
+            errors.rejectValue("name", null, "Giá thành phải là số nguyên dương");
+        }
+//         Validate Số lượng (quantity)
+        if (medicalDto.getPrice().isEmpty()) {
+            errors.rejectValue("name", null, "Tên vật tư không được để trống");
+        } else if (!medicalDto.getPrice().matches("^[1-9]\\d*$")){
+            errors.rejectValue("name", null, "Giá thành phải là số nguyên dương");
+        }
+        // Validate Ngày nhập hàng (importDate)
+        if (medicalDto.getImportDate().compareTo(nowDate) > 0) {
+            errors.rejectValue("importDate", null, "Ngày nhập hàng không lớn hơn ngày hiện tại");
         }
         // Validate Hạn sử dụng (expiry)
-        try {
-            Date expiryDate = sdf.parse(medicalDto.getExpiry().toString());
-            Date currentDate = new Date();
-            if (expiryDate.before(currentDate)) {
-                errors.rejectValue("expiry", null, "Hạn sử dụng phải lớn hơn ngày hiện tại");
-            }
-        } catch (ParseException e) {
-            errors.rejectValue("expiry", null, "Hạn sử dụng phải theo định dạng dd/MM/yy");
-        }
-        try {
-            Date expiryDate = sdf.parse(medicalDto.getExpiry().toString());
-            Date currentDate = new Date();
-            if (expiryDate.before(currentDate)) {
-                errors.rejectValue("expiry", null, "Hạn sử dụng phải lớn hơn ngày hiện tại");
-            }
-            Date importDate = sdf.parse(medicalDto.getImportDate().toString());
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(importDate);
-            calendar.add(Calendar.MONTH, 6); // Kiểm tra ít nhất 6 tháng
-            Date sixMonthsLater = calendar.getTime();
-            if (expiryDate.before(sixMonthsLater)) {
-                errors.rejectValue("expiry", null, "Hạn sử dụng phải lớn hơn ngày nhập hàng ít nhất 6 tháng");
-            }
-            calendar.add(Calendar.YEAR, 1); // Kiểm tra ít nhất 1 năm
-            Date oneYearLater = calendar.getTime();
-            if (expiryDate.before(oneYearLater)) {
-                errors.rejectValue("expiry", null, "Hạn sử dụng phải lớn hơn ngày nhập hàng ít nhất 1 năm");
-            }
-        } catch (ParseException e) {
-            errors.rejectValue("expiry", null, "Hạn sử dụng phải theo định dạng dd/MM/yy");
-        }
-        // Validate Số lượng (quantity)
-        if (medicalDto.getQuantity() > 0) {
-            errors.rejectValue("quantity", "Số lượng phải là số nguyên dương");
+        if (medicalDto.getExpiry().compareTo(newDate) < 0 || medicalDto.getExpiry().compareTo(newDate) == 0) {
+            errors.rejectValue("expiry", null, "Hạn sử dụng phải hơn 6 tháng so với ngày hiện tại");
         }
     }
 }
