@@ -25,7 +25,7 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("api/supply")
+@RequestMapping("/api/supply")
 public class RestMedicalController {
 
     @Autowired
