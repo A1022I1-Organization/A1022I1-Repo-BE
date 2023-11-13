@@ -2,8 +2,10 @@ package com.example.medical_management.dto;
 
 import com.example.medical_management.model.account.Account;
 import com.example.medical_management.model.medical_supplies.Category;
+import com.example.medical_management.model.medical_supplies.MedicalSupplies;
 import com.example.medical_management.model.medical_supplies.Supplier;
 import com.example.medical_management.model.medical_supplies.Unit;
+import com.example.medical_management.repository.medical.IMedicalRepository;
 import com.example.medical_management.service.medical.IMedicalService;
 import com.example.medical_management.service.medical.impl.MedicalServiceImpl;
 import org.springframework.validation.Errors;
@@ -19,7 +21,7 @@ import java.util.Calendar;
 import java.util.regex.Pattern;
 
 public class MedicalSuppliesDto implements Validator {
-    private int id;
+    private Long id;
     private String code;
     private String name;
     private String picture;
@@ -37,7 +39,7 @@ public class MedicalSuppliesDto implements Validator {
     public MedicalSuppliesDto() {
     }
 
-    public MedicalSuppliesDto(int id, String code, String name, String picture, String price, Date importDate, Date expiry, String quantity, Category category, Supplier supplier, Unit unit, Account account) {
+    public MedicalSuppliesDto(Long id, String code, String name, String picture, String price, Date importDate, Date expiry, String quantity, Category category, Supplier supplier, Unit unit, Account account) {
         this.id = id;
         this.code = code;
         this.name = name;
@@ -52,11 +54,11 @@ public class MedicalSuppliesDto implements Validator {
         this.account = account;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -152,6 +154,7 @@ public class MedicalSuppliesDto implements Validator {
     public boolean supports(Class<?> clazz) {
         return false;
     }
+
     @Override
     public void validate(Object target, Errors errors) {
         MedicalSuppliesDto medicalDto = (MedicalSuppliesDto) target;
