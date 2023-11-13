@@ -86,7 +86,7 @@ public class RestMedicalController {
         MedicalSupplies medicalSupplies = new MedicalSupplies();
         BeanUtils.copyProperties(medicalSuppliesDto, medicalSupplies);
 
-        medicalService.add(medicalSupplies);
+        medicalService.update(medicalSupplies);
         errorInput.put("message", "successful");
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -191,5 +191,4 @@ public class RestMedicalController {
         }
         return new ResponseEntity<>(expiredSupplies, HttpStatus.OK);
     }
-
 }
