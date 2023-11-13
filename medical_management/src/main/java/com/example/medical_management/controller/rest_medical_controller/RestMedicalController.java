@@ -174,12 +174,12 @@ public class RestMedicalController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getDetail(@PathVariable Long id) {
-        MedicalSupplies medical = medicalService.findByMedical(id);
-        if (medical==null){
+        MedicalSupplies supply = medicalService.findByMedical(id);
+        if (supply==null){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }else {
             medicalService.findByMedical(id);
-            return new ResponseEntity<>(medical, HttpStatus.OK);
+            return new ResponseEntity<>(supply, HttpStatus.OK);
         }
     }
 
