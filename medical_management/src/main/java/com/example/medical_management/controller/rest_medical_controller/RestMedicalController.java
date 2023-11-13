@@ -86,7 +86,7 @@ public class RestMedicalController {
         MedicalSupplies medicalSupplies = new MedicalSupplies();
         BeanUtils.copyProperties(medicalSuppliesDto, medicalSupplies);
 
-        medicalService.add(medicalSupplies);
+        medicalService.update(medicalSupplies);
         errorInput.put("message", "successful");
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -174,12 +174,12 @@ public class RestMedicalController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getDetail(@PathVariable Long id) {
-        MedicalSupplies medical = medicalService.findByMedical(id);
-        if (medical==null){
+        MedicalSupplies supply = medicalService.findByMedical(id);
+        if (supply==null){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }else {
             medicalService.findByMedical(id);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(supply, HttpStatus.OK);
         }
     }
 
@@ -191,5 +191,4 @@ public class RestMedicalController {
         }
         return new ResponseEntity<>(expiredSupplies, HttpStatus.OK);
     }
-
 }
