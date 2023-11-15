@@ -19,6 +19,9 @@ public interface IMedicalRepository extends JpaRepository<MedicalSupplies, Long>
     @Query(value = QuerySupplies.FIND_NEW_SUPPLIES_PAGE, nativeQuery = true)
     Page<MedicalSupplies> findNewSupplies(Pageable pageable);
 
+    @Query(value = QuerySupplies.DELETE_SUPPLY, nativeQuery = true)
+    void deleteById(@Param("supplyId") long id);
+
     @Query(value = QuerySupplies.GET_EXPIRED_SUPPLIES, nativeQuery = true)
     List<MedicalSupplies> findExpiredSupplies();
 

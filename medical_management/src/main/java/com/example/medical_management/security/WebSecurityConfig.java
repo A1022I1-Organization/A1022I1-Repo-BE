@@ -55,22 +55,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
 
-        httpSecurity.cors().and().csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/api/login", "/login", "/successOauth","/logout",
-                        "/api/supply/list","/api/supply/getCategory","/api/supply/getUnit","/api/supply/getSupplier").permitAll()
-                .antMatchers("/api/supply/**").hasAnyRole("EMPLOYEE","ADMIN")
-                .antMatchers("/api/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
-                .and()
-                .csrf().disable();
-        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
-
-
 
 //        httpSecurity.cors().and().csrf().disable()
 //                .authorizeRequests()
-//                .antMatchers("/**").permitAll();
+//                .antMatchers("/api/login", "/login", "/successOauth","/logout",
+//                        "/api/supply/list","/api/supply/getCategory","/api/supply/getUnit","/api/supply/getSupplier").permitAll()
+//                .antMatchers("/api/supply/**").hasAnyRole("EMPLOYEE","ADMIN")
+//                .antMatchers("/api/**").hasRole("ADMIN")
+//                .anyRequest().authenticated()
+//                .and()
+//                .csrf().disable();
+//        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+//
+
+
+
+        httpSecurity.cors().and().csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/**").permitAll();
     }
 }

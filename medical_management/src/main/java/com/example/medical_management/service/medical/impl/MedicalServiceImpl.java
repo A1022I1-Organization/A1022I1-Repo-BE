@@ -41,8 +41,8 @@ public class MedicalServiceImpl implements IMedicalService {
     }
 
     @Override
-    public void delete(MedicalSupplies medicalSupplies) {
-        medicalRepository.delete(medicalSupplies);
+    public void delete(long id) {
+        medicalRepository.deleteById(id);
     }
 
     @Override
