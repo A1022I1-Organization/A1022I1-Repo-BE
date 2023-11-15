@@ -54,4 +54,11 @@ public class MedicalServiceImpl implements IMedicalService {
     public List<MedicalSupplies> getAllListWithPage(String category, int page) {
        return medicalRepository.getAllListWithPage(category,page);
     }
+
+    @Override
+    public boolean checkExitsCode(String code) {
+        return medicalRepository.existsByCode(code);
+    }
+
+
 }
