@@ -15,7 +15,7 @@ public interface IMedicalService {
     Page<MedicalSupplies> findOldSupplies (Pageable pageable);
     Page<MedicalSupplies> findNewSupplies (Pageable pageable);
     MedicalSupplies findByMedical(Long id);
-    void delete (MedicalSupplies medicalSupplies);
+    void delete (long id);
 
     List<MedicalSupplies> findExpiredSupplies();
     List<MedicalSupplies> getAllListWithPage(String category, int page);

@@ -130,7 +130,7 @@ public class RestMedicalController {
 
     @GetMapping("/oldSupplies")
     public ResponseEntity<Page<MedicalSupplies>> getOldSupplies(@RequestParam(defaultValue = "0") int page,
-                                                                @RequestParam(defaultValue = "5") int size) {
+                                                                @RequestParam(defaultValue = "") int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<MedicalSupplies> oldSupplies = medicalService.findOldSupplies(pageable);
 
@@ -149,9 +149,10 @@ public class RestMedicalController {
         }
         return new ResponseEntity<>(oldSupplies, HttpStatus.OK);
     }
+
     @GetMapping("/newSupplies")
     public ResponseEntity<Page<MedicalSupplies>> getNewSupplies(@RequestParam(defaultValue = "0") int page,
-                                                                @RequestParam(defaultValue = "5") int size) {
+                                                                @RequestParam(defaultValue = "") int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<MedicalSupplies> newSupplies = medicalService.findNewSupplies(pageable);
 
@@ -167,7 +168,7 @@ public class RestMedicalController {
         if (medicalSupplies==null){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }else {
-            medicalService.delete(medicalSupplies);
+            medicalService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }
