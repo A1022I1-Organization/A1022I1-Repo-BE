@@ -2,7 +2,9 @@ package com.example.medical_management.controller.account_controller;
 import com.example.medical_management.dto.AccountRoleDto;
 import com.example.medical_management.model.account.Account;
 import com.example.medical_management.model.account.AccountRole;
+import com.example.medical_management.security.payload.request.AccountRequest;
 import com.example.medical_management.service.account.AccountRoleService;
+import com.example.medical_management.service.account.IAccountService;
 import com.example.medical_management.service.email.EmailService;
 import com.example.medical_management.util.account.EncrytedPasswordUtils;
 import com.example.medical_management.util.password.RandomPassword;
@@ -20,10 +22,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api/account")
 public class RestAccountController {
     @Autowired
-    private AccountRoleService accountService;
+    private AccountRoleService accountRoleService;
+    @Autowired
+    private IAccountService iAccountService;
     @Autowired
     private EmailService emailService;
 
@@ -58,8 +63,8 @@ public class RestAccountController {
             );
 
             // Thêm mới tài khoản
-            accountService.addNewAccount(account);
-            accountService.addNew(accountRole);
+            accountRoleService.addNewAccount(account);
+            accountRoleService.addNew(accountRole);
 
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
@@ -90,7 +95,7 @@ public class RestAccountController {
 
         // Chuyển đổi dữ liệu
         accountRole.setAppAccount(convertToAccount(accountRoleDto));
-        accountRole.setAppRole(accountService.findRoleById(accountRoleDto.getRoleId()));
+        accountRole.setAppRole(accountRoleService.findRoleById(accountRoleDto.getRoleId()));
 
         return accountRole;
     }
@@ -104,5 +109,20 @@ public class RestAccountController {
         return ResponseEntity.ok(account);
     }
 
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestBody AccountRequest accountRequest) {
+
+      String newPassword = EncrytedPasswordUtils.encrytePassword(accountRequest.getPassword());
+
+      try{
+         Boolean check = iAccountService.changePassword(accountRequest.getUsername(),newPassword);
+          return new ResponseEntity<>(check,HttpStatus.OK);
+
+      }catch (Exception e){
+          System.out.println(e.getMessage());
+          return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+      }
+    }
 
 }
