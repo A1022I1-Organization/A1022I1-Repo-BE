@@ -5,6 +5,7 @@ import com.example.medical_management.model.medical_supplies.MedicalSupplies;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -19,6 +20,7 @@ public interface IMedicalRepository extends JpaRepository<MedicalSupplies, Long>
     @Query(value = QuerySupplies.FIND_NEW_SUPPLIES_PAGE, nativeQuery = true)
     Page<MedicalSupplies> findNewSupplies(Pageable pageable);
 
+    @Modifying
     @Query(value = QuerySupplies.DELETE_SUPPLY, nativeQuery = true)
     void deleteById(@Param("supplyId") long id);
 
