@@ -9,13 +9,13 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_id")
-    private long id;
+    private Long id;
     private String employeeCode;
     private String username;
     private String password;
     private String idCard;
     private String employeeName;
-    private boolean gender;
+    private Boolean gender;
     private Date birthday;
     private String gmail;
     private String phone;
@@ -25,7 +25,7 @@ public class Account {
     public Account() {
     }
 
-    public Account(long id, String username, String password, String idCard, String employeeName, String employeeCode, boolean gender,
+    public Account(Long id, String username, String password, String idCard, String employeeName, String employeeCode, Boolean gender,
                    Date birthday, String gmail, String phone, String address,
                    String imgLink) {
         this.id = id;
@@ -58,11 +58,11 @@ public class Account {
         this.imgLink = imgLink;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -102,7 +102,7 @@ public class Account {
         return gender;
     }
 
-    public void setGender(boolean gender) {
+    public void setGender(Boolean gender) {
         this.gender = gender;
     }
 
