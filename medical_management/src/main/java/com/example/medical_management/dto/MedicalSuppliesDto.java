@@ -187,15 +187,13 @@ public class MedicalSuppliesDto implements Validator {
         }
 //         Validate Giá thành (price)
         if (medicalDto.getPrice().isEmpty()) {
-            errors.rejectValue("name", null, "Tên vật tư không được để trống");
-        } else if (!medicalDto.getPrice().matches("^[1-9]\\d*$")){
-            errors.rejectValue("name", null, "Giá thành phải là số nguyên dương");
+            errors.rejectValue("price", null, "Giá thành không được để trống");
         }
 //         Validate Số lượng (quantity)
-        if (medicalDto.getPrice().isEmpty()) {
-            errors.rejectValue("name", null, "Tên vật tư không được để trống");
-        } else if (!medicalDto.getPrice().matches("^[1-9]\\d*$")){
-            errors.rejectValue("name", null, "Giá thành phải là số nguyên dương");
+        if (medicalDto.getQuantity().isEmpty()) {
+            errors.rejectValue("quantity", null, "Số lượng không được để trống");
+        } else if (!medicalDto.getQuantity().matches("^[1-9]\\d*$")){
+            errors.rejectValue("quantity", null, "Số lượng phải là số nguyên dương");
         }
         // Validate Ngày nhập hàng (importDate)
         if (medicalDto.getImportDate().compareTo(nowDate) > 0) {
