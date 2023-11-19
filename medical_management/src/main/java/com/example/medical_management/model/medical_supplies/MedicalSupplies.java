@@ -15,7 +15,7 @@ public class MedicalSupplies {
     private String picture;
     private String code;
     private String name;
-    private String price;
+    private float price;
     @Column(columnDefinition = "DATE")
     private Date importDate;
     @Column(columnDefinition = "DATE")
@@ -40,8 +40,8 @@ public class MedicalSupplies {
     public MedicalSupplies() {
     }
 
-    public MedicalSupplies(Long id, String picture, String code, String name, String price, Date importDate, Date expiry, String quantity, Category category, Supplier supplier, Unit unit, Account account) {
-        this.supplyId = id;
+    public MedicalSupplies(Long supplyId, String picture, String code, String name, float price, Date importDate, Date expiry, String quantity, Category category, Supplier supplier, Unit unit, Account account, boolean deleteFlag) {
+        this.supplyId = supplyId;
         this.picture = picture;
         this.code = code;
         this.name = name;
@@ -53,14 +53,15 @@ public class MedicalSupplies {
         this.supplier = supplier;
         this.unit = unit;
         this.account = account;
+        this.deleteFlag = deleteFlag;
     }
 
-    public Long getId() {
+    public Long getSupplyId() {
         return supplyId;
     }
 
-    public void setId(Long id) {
-        this.supplyId = id;
+    public void setSupplyId(Long supplyId) {
+        this.supplyId = supplyId;
     }
 
     public String getPicture() {
@@ -87,11 +88,11 @@ public class MedicalSupplies {
         this.name = name;
     }
 
-    public String getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
@@ -149,5 +150,13 @@ public class MedicalSupplies {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public boolean isDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(boolean deleteFlag) {
+        this.deleteFlag = deleteFlag;
     }
 }

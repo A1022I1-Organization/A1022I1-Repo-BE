@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api/account")
 public class RestAccountController {
     @Autowired
