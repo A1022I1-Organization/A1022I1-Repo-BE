@@ -1,11 +1,10 @@
-package com.example.medical_management.controller.account_controller;
+package com.example.medical_management.controller.rest_account_controller;
 import com.example.medical_management.dto.AccountRoleDto;
 import com.example.medical_management.model.account.Account;
 import com.example.medical_management.model.account.AccountRole;
 import com.example.medical_management.security.payload.request.AccountRequest;
 import com.example.medical_management.service.account.AccountRoleService;
 import com.example.medical_management.service.account.IAccountService;
-import com.example.medical_management.service.email.EmailService;
 import com.example.medical_management.util.account.EncrytedPasswordUtils;
 import com.example.medical_management.util.password.RandomPassword;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +28,8 @@ public class RestAccountController {
     private AccountRoleService accountRoleService;
     @Autowired
     private IAccountService iAccountService;
-    @Autowired
-    private EmailService emailService;
 
-    @PostMapping("")
+    @PostMapping("/create")
     public ResponseEntity<?> create(@Valid @RequestBody AccountRoleDto accountRoleDto, BindingResult result) {
         if (result.hasErrors()) {
             List<String> errorMessages = new ArrayList<>();
@@ -55,12 +52,6 @@ public class RestAccountController {
             String encryptedPass = EncrytedPasswordUtils.encrytePassword(password);
             // Lưu mật khẩu mã hóa
             accountRole.getAppAccount().setPassword(encryptedPass);
-            // Gửi mail
-            emailService.sendSimpleMessage(
-                    accountRole.getAppAccount().getGmail(),
-                    "Mật khẩu tài khoản vật tư y tế",
-                    "Mật khẩu mới của bạn: " + password
-            );
 
             // Thêm mới tài khoản
             accountRoleService.addNewAccount(account);

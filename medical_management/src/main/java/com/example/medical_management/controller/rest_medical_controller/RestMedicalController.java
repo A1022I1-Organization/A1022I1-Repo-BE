@@ -21,9 +21,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @RestController
 @CrossOrigin("*")
@@ -184,12 +186,26 @@ public class RestMedicalController {
         }
     }
 
-    @GetMapping("/expired-supplies")
-    public ResponseEntity<List<MedicalSupplies>> getExpriredSupplies() {
-        List<MedicalSupplies> expiredSupplies = medicalService.findExpiredSupplies();
-        if (expiredSupplies == null) {
+    @GetMapping("/statistic-supplies/{lastDate}")
+    public ResponseEntity<List<MedicalSupplies>> getStatisticSupplies(@PathVariable String lastDate) {
+        List<Object[]> result = medicalService.findAllBetweenDays(lastDate);
+        List<MedicalSupplies> suppliesList = new ArrayList<>();
+
+        for (Object[] row : result) {
+            MedicalSupplies item = new MedicalSupplies();
+
+            item.setCode((String) row[0]);
+            item.setExpiry((Date) row[1]);
+            item.setImportDate((Date) row[2]);
+            item.setName((String) row[3]);
+            item.setQuantity((String) row[4]);
+
+            suppliesList.add(item);
+        }
+
+        if (suppliesList == null || suppliesList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(expiredSupplies, HttpStatus.OK);
+        return new ResponseEntity<>(suppliesList, HttpStatus.OK);
     }
 }
