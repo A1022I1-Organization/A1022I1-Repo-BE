@@ -28,4 +28,16 @@ public class AccountServiceImlp implements IAccountService {
     public List<Account> findAllAccount() {
         return accountRepository.findAll();
     }
+
+    @Override
+    public Boolean changePassword(String username, String password) {
+        try{
+            accountRepository.changePassword(username,password);
+            return true;
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return false;
+
+        }
+    }
 }

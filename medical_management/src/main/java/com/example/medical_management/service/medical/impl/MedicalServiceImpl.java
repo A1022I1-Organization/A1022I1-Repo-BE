@@ -1,5 +1,6 @@
 package com.example.medical_management.service.medical.impl;
 
+import com.example.medical_management.dto.MedicalSuppliesDto;
 import com.example.medical_management.model.medical_supplies.MedicalSupplies;
 import com.example.medical_management.repository.medical.IMedicalRepository;
 import com.example.medical_management.service.medical.IMedicalService;
@@ -8,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -46,8 +48,8 @@ public class MedicalServiceImpl implements IMedicalService {
     }
 
     @Override
-    public List<MedicalSupplies> findExpiredSupplies() {
-        return medicalRepository.findExpiredSupplies();
+    public List<Object[]> findAllBetweenDays(String lastDateInput) {
+        return medicalRepository.findAllBetweenDays(lastDateInput);
     }
 
     @Override

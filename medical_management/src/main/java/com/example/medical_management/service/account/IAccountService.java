@@ -9,4 +9,6 @@ public interface IAccountService {
     void addNew(AccountRole accountRole);
     Account getAccountByUsername(String username);
     List<Account> findAllAccount();
+
+    Boolean changePassword(String username,String password);
 }
