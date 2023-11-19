@@ -43,8 +43,8 @@ public class MedicalServiceImpl implements IMedicalService {
     }
 
     @Override
-    public void delete(MedicalSupplies medicalSupplies) {
-        medicalRepository.delete(medicalSupplies);
+    public void delete(long id) {
+            medicalRepository.deleteById(id);
     }
 
     @Override
@@ -56,4 +56,11 @@ public class MedicalServiceImpl implements IMedicalService {
     public List<MedicalSupplies> getAllListWithPage(String category, int page) {
        return medicalRepository.getAllListWithPage(category,page);
     }
+
+    @Override
+    public boolean checkExitsCode(String code) {
+        return medicalRepository.existsByCode(code);
+    }
+
+
 }

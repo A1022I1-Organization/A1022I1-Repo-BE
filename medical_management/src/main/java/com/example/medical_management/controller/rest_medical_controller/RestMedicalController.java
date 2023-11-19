@@ -88,7 +88,7 @@ public class RestMedicalController {
         MedicalSupplies medicalSupplies = new MedicalSupplies();
         BeanUtils.copyProperties(medicalSuppliesDto, medicalSupplies);
 
-        medicalService.add(medicalSupplies);
+        medicalService.update(medicalSupplies);
         errorInput.put("message", "successful");
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -132,7 +132,7 @@ public class RestMedicalController {
 
     @GetMapping("/oldSupplies")
     public ResponseEntity<Page<MedicalSupplies>> getOldSupplies(@RequestParam(defaultValue = "0") int page,
-                                                                @RequestParam(defaultValue = "5") int size) {
+                                                                @RequestParam(defaultValue = "") int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<MedicalSupplies> oldSupplies = medicalService.findOldSupplies(pageable);
 
@@ -151,9 +151,10 @@ public class RestMedicalController {
         }
         return new ResponseEntity<>(oldSupplies, HttpStatus.OK);
     }
+
     @GetMapping("/newSupplies")
     public ResponseEntity<Page<MedicalSupplies>> getNewSupplies(@RequestParam(defaultValue = "0") int page,
-                                                                @RequestParam(defaultValue = "5") int size) {
+                                                                @RequestParam(defaultValue = "") int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<MedicalSupplies> newSupplies = medicalService.findNewSupplies(pageable);
 
@@ -169,19 +170,19 @@ public class RestMedicalController {
         if (medicalSupplies==null){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }else {
-            medicalService.delete(medicalSupplies);
+            medicalService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getDetail(@PathVariable Long id) {
-        MedicalSupplies medical = medicalService.findByMedical(id);
-        if (medical==null){
+        MedicalSupplies supply = medicalService.findByMedical(id);
+        if (supply==null){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }else {
             medicalService.findByMedical(id);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(supply, HttpStatus.OK);
         }
     }
 
