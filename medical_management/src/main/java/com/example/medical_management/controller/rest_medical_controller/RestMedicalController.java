@@ -47,6 +47,15 @@ public class RestMedicalController {
     @Autowired
     private IAccountService accountService;
 
+    @GetMapping("/getAllSupply")
+    public ResponseEntity<List<MedicalSupplies>> getMedicalSupplies() {
+        List<MedicalSupplies> medicalSupplies = medicalService.findAllSupply();
+        if (medicalSupplies.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(medicalSupplies, HttpStatus.OK);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<?> create(@RequestBody MedicalSuppliesDto medicalSuppliesDto,
                                     BindingResult bindingResult) {
@@ -207,5 +216,14 @@ public class RestMedicalController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(suppliesList, HttpStatus.OK);
+    }
+
+    @GetMapping("/lastSupply")
+    public ResponseEntity<?> getLastSupply() {
+        MedicalSupplies lastSupply = medicalService.getLastSupply();
+        if (lastSupply == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(lastSupply, HttpStatus.OK);
     }
 }

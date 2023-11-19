@@ -23,5 +23,6 @@ public interface IMedicalService {
 
 
     List<MedicalSupplies> getAllListWithPage(String category, int page);
-    boolean checkExitsCode(String code);
+    List<MedicalSupplies> findAllSupply();
+    MedicalSupplies getLastSupply();
 }

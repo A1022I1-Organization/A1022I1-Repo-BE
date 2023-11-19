@@ -25,7 +25,7 @@ public class MedicalSuppliesDto implements Validator {
     private String code;
     private String name;
     private String picture;
-    private String price;
+    private float price;
     @NotNull(message = "Ngày nhập hàng không được để trống")
     private Date importDate;
     @NotNull(message = "Hạn sử dụng không được để trống")
@@ -39,7 +39,7 @@ public class MedicalSuppliesDto implements Validator {
     public MedicalSuppliesDto() {
     }
 
-    public MedicalSuppliesDto(Long id, String code, String name, String picture, String price, Date importDate, Date expiry, String quantity, Category category, Supplier supplier, Unit unit, Account account) {
+    public MedicalSuppliesDto(Long id, String code, String name, String picture, float price, Date importDate, Date expiry, String quantity, Category category, Supplier supplier, Unit unit, Account account) {
         this.id = id;
         this.code = code;
         this.name = name;
@@ -86,11 +86,11 @@ public class MedicalSuppliesDto implements Validator {
         this.picture = picture;
     }
 
-    public String getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
@@ -186,7 +186,7 @@ public class MedicalSuppliesDto implements Validator {
             errors.rejectValue("name", null, "Tên vật tư không được lớn hơn 100 và bé hơn 2 ký tự");
         }
 //         Validate Giá thành (price)
-        if (medicalDto.getPrice().isEmpty()) {
+        if (medicalDto.getPrice() == 0.0f) {
             errors.rejectValue("price", null, "Giá thành không được để trống");
         }
 //         Validate Số lượng (quantity)
