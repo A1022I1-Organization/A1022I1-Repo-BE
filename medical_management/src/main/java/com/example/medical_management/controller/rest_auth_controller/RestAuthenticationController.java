@@ -75,7 +75,6 @@ public class RestAuthenticationController {
         return ResponseEntity.ok(account);
     }
 
-
     @GetMapping(value = "/checkAuthen")
     public ResponseEntity<?> test() throws Exception {
         System.out.println("ok");

@@ -33,5 +33,6 @@ public interface IMedicalRepository extends JpaRepository<MedicalSupplies, Long>
     @Query(value = "SELECT * FROM medical_management.medical_supplies where category_id like concat ('%', :category ,'%') limit 0, :page ",nativeQuery = true )
     List<MedicalSupplies> getAllListWithPage(@Param("category")String category,@Param("page")int page);
 
-    boolean existsByCode(String code);
+    @Query(value = "SELECT * FROM medical_supplies ORDER BY medical_supplies_id DESC LIMIT 1",nativeQuery = true )
+    MedicalSupplies getLastSupply();
 }

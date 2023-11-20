@@ -63,9 +63,12 @@ public class MedicalServiceImpl implements IMedicalService {
     }
 
     @Override
-    public boolean checkExitsCode(String code) {
-        return medicalRepository.existsByCode(code);
+    public List<MedicalSupplies> findAllSupply() {
+        return medicalRepository.findAll();
     }
 
-
+    @Override
+    public MedicalSupplies getLastSupply() {
+        return medicalRepository.getLastSupply();
+    }
 }
