@@ -1,7 +1,7 @@
 package com.example.medical_management.security;
 
 
-import com.example.medical_management.service.account.imlp.JwtAccountDetailsService;
+import com.example.medical_management.service.account.impl.JwtAccountDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -55,7 +55,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
 
-<<<<<<< HEAD
 //        httpSecurity.cors().and().csrf().disable()
 //                .authorizeRequests()
 //                .antMatchers("/api/login", "/login", "/successOauth","/logout","/api/supply/list").permitAll()
@@ -74,7 +73,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-=======
 
         httpSecurity.cors().and().csrf().disable()
                 .authorizeRequests()
@@ -93,6 +91,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        httpSecurity.cors().and().csrf().disable()
 //                .authorizeRequests()
 //                .antMatchers("/**").permitAll();
->>>>>>> a98ea2ca8b9f4c9c71ba13e27028fd1fcf10cce3
     }
 }

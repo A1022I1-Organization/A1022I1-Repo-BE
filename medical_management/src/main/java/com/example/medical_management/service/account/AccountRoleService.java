@@ -11,7 +11,7 @@ public interface AccountRoleService {
 
     AppRole findRoleById(Long id);
 
-    void addNewAccount(Account account);
+    void save(AccountRole accountRole);
 
     List<AccountRole> getAccountRoleByUsername(String username);
 

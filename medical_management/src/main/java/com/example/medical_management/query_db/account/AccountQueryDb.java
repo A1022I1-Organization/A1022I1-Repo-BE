@@ -7,4 +7,11 @@ public class AccountQueryDb {
     public static final String GET_ACCOUNT_BY_USERNAME =  "  SELECT * FROM account WHERE account.username = :username ;";
 
     public static final String CHANGE_PASSWORD_ACCOUNT = "UPDATE account SET account.password = :password WHERE account.username = :username" ;
+
+//    public static final String CREATE_NEW_ACCOUNT = "INSERT INTO account (address, birthday, employee_code, employee_name, gender, gmail, id_card, img_link, password, phone, username)\n" +
+//            "VALUES (:#{#account.address}, :#{#account.birthday}, :#{#account.employeeCode}, :#{#account.employeeName}, :#{#account.gender}, \" +\n" +
+//            "               \":#{#account.gmail}, :#{#account.idCard}, :#{#account.imgLink}, :#{#account.password}, :#{#account.phone}, :#{#account.username});";
+//
+//    public static final String CREATE_NEW_ACCOUNT_ROLE = "INSERT INTO account_role (account_id, role_id)\n" +
+//            "VALUES (:accountId, :appRoleId);";
 }
