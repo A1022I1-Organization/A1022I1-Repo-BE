@@ -17,10 +17,9 @@ public interface IMedicalService {
     Page<MedicalSupplies> findOldSupplies (Pageable pageable);
     Page<MedicalSupplies> findNewSupplies (Pageable pageable);
     MedicalSupplies findByMedical(Long id);
+    void delete (MedicalSupplies medicalSupplies);
     List<Object[]> findAllBetweenDays(String lastDateInput);
-
     void delete (long id);
-
 
     List<MedicalSupplies> getAllListWithPage(String category, int page);
     List<MedicalSupplies> findAllSupply();

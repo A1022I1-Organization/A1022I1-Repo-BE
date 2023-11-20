@@ -6,7 +6,7 @@ import com.example.medical_management.model.medical_supplies.Category;
 import com.example.medical_management.model.medical_supplies.MedicalSupplies;
 import com.example.medical_management.model.medical_supplies.Supplier;
 import com.example.medical_management.model.medical_supplies.Unit;
-import com.example.medical_management.service.account.IAccountService;
+import com.example.medical_management.service.account.AccountService;
 import com.example.medical_management.service.medical.ICategoryService;
 import com.example.medical_management.service.medical.IMedicalService;
 import com.example.medical_management.service.medical.ISupplierService;
@@ -23,8 +23,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
@@ -45,7 +43,7 @@ public class RestMedicalController {
     private IUnitService unitService;
 
     @Autowired
-    private IAccountService accountService;
+    private AccountService accountService;
 
     @GetMapping("/getAllSupply")
     public ResponseEntity<List<MedicalSupplies>> getMedicalSupplies() {

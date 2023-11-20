@@ -130,6 +130,10 @@ public class Account {
         this.phone = numberPhone;
     }
 
+    public Boolean getGender() {
+        return gender;
+    }
+
     public String getAddress() {
         return address;
     }

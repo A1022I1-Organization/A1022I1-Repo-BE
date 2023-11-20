@@ -23,7 +23,6 @@ public interface IMedicalRepository extends JpaRepository<MedicalSupplies, Long>
     @Query(value = QuerySupplies.FIND_NEW_SUPPLIES_PAGE, nativeQuery = true)
     Page<MedicalSupplies> findNewSupplies(Pageable pageable);
 
-
     @Query(value = QuerySupplies.GET_ALL_BETWEEN_DAYS, nativeQuery = true)
     List<Object[]> findAllBetweenDays(@Param("lastDateInput") String lastDateInput);
 
