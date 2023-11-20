@@ -10,7 +10,7 @@ public class MedicalSupplies {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "medical_supplies_id")
-    private Long supplyId;
+    private Long id;
     @Column(columnDefinition = "longtext")
     private String picture;
     private String code;
@@ -41,7 +41,7 @@ public class MedicalSupplies {
     }
 
     public MedicalSupplies(Long id, String picture, String code, String name, String price, Date importDate, Date expiry, String quantity, Category category, Supplier supplier, Unit unit, Account account) {
-        this.supplyId = id;
+        this.id = id;
         this.picture = picture;
         this.code = code;
         this.name = name;
@@ -56,11 +56,11 @@ public class MedicalSupplies {
     }
 
     public Long getId() {
-        return supplyId;
+        return id;
     }
 
     public void setId(Long id) {
-        this.supplyId = id;
+        this.id = id;
     }
 
     public String getPicture() {

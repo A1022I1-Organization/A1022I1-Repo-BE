@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -34,6 +35,27 @@ public class MedicalServiceImpl implements IMedicalService {
     public Page<MedicalSupplies> findNewSupplies(Pageable pageable) {
         return medicalRepository.findNewSupplies(pageable);
     }
+
+    @Override
+    public Page<MedicalSupplies> findByType(Pageable pageable, long id) {
+        return medicalRepository.findByType(pageable, id);
+    }
+
+    @Override
+    public Page<MedicalSupplies> findBySupplier(Pageable pageable, long id) {
+        return medicalRepository.findBySupplier(pageable, id);
+    }
+
+    @Override
+    public Page<MedicalSupplies> findByDate(Pageable pageable, Date fromDate, Date toDate) {
+        return medicalRepository.findByExpiry(pageable, fromDate, toDate);
+    }
+
+    @Override
+    public Page<MedicalSupplies> findByName(Pageable pageable, String name) {
+        return medicalRepository.findByName(pageable, name);
+    }
+
 
     @Override
     public MedicalSupplies findByMedical(Long id) {

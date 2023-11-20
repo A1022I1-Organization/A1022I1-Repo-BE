@@ -21,6 +21,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -130,11 +132,31 @@ public class RestMedicalController {
 
     @GetMapping("/oldSupplies")
     public ResponseEntity<Page<MedicalSupplies>> getOldSupplies(@RequestParam(defaultValue = "0") int page,
-                                                                @RequestParam(defaultValue = "") int size) {
+                                                                @RequestParam(defaultValue = "") int size,
+                                                                @RequestParam(defaultValue = "") String valueSearch,
+                                                                @RequestParam(defaultValue = "") String dropdown) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<MedicalSupplies> oldSupplies = medicalService.findOldSupplies(pageable);
+        Page<MedicalSupplies> oldSupplies = null;
 
-        if (oldSupplies.isEmpty()) {
+        switch (dropdown) {
+            case "Supplies":
+                oldSupplies = medicalService.findByName(pageable, valueSearch);
+                break;
+            case "Types":
+                oldSupplies = medicalService.findByType(pageable, Long.parseLong(valueSearch));
+                break;
+            case "Suppliers":
+                oldSupplies = medicalService.findBySupplier(pageable, Long.parseLong(valueSearch));
+                break;
+//            case "Expiry":
+//                oldSupplies = medicalService.findByDate(pageable, Date.parse(valueSearch), Date.parse(valueSearch));
+//                break;
+            default:
+                oldSupplies = medicalService.findOldSupplies(pageable);
+                break;
+        }
+
+        if (oldSupplies == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(oldSupplies, HttpStatus.OK);
@@ -161,6 +183,8 @@ public class RestMedicalController {
         }
         return new ResponseEntity<>(newSupplies, HttpStatus.OK);
     }
+
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
