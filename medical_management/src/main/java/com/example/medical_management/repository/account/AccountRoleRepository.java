@@ -13,4 +13,7 @@ import java.util.List;
 public interface AccountRoleRepository extends JpaRepository<AccountRole, Long> {
     @Query(value = AccountQueryDb.GET_ACCOUNT_ROLE_BY_USERNAME, nativeQuery = true)
     List<AccountRole> getAccountRoleByUsername(@Param("username") String username);
+
+//    @Query(value = AccountQueryDb.CREATE_NEW_ACCOUNT_ROLE, nativeQuery = true)
+//    void createNewAccountRole(@Param("accountId") Long accountId, @Param("appRoleId") Long appRoleId);
 }

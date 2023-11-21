@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="da14d5ee-a204-458a-8e51-1e60bc6f420e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/medical_management/src/main/java/com/example/medical_management/dto/AccountDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical_management/src/main/java/com/example/medical_management/QueryDB/QuerySupplies.java" beforeDir="false" afterPath="$PROJECT_DIR$/medical_management/src/main/java/com/example/medical_management/QueryDB/QuerySupplies.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical_management/src/main/java/com/example/medical_management/controller/rest_account_controller/RestAccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/medical_management/src/main/java/com/example/medical_management/controller/rest_account_controller/RestAccountController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical_management/src/main/java/com/example/medical_management/dto/AccountRoleDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical_management/src/main/java/com/example/medical_management/query_db/account/AccountQueryDb.java" beforeDir="false" afterPath="$PROJECT_DIR$/medical_management/src/main/java/com/example/medical_management/query_db/account/AccountQueryDb.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical_management/src/main/java/com/example/medical_management/repository/account/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/medical_management/src/main/java/com/example/medical_management/repository/account/AccountRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical_management/src/main/java/com/example/medical_management/repository/account/AccountRoleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/medical_management/src/main/java/com/example/medical_management/repository/account/AccountRoleRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical_management/src/main/java/com/example/medical_management/repository/medical/IMedicalRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/medical_management/src/main/java/com/example/medical_management/repository/medical/IMedicalRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical_management/src/main/java/com/example/medical_management/security/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/medical_management/src/main/java/com/example/medical_management/security/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical_management/src/main/java/com/example/medical_management/service/medical/IMedicalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/medical_management/src/main/java/com/example/medical_management/service/medical/IMedicalService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical_management/src/main/java/com/example/medical_management/service/medical/impl/MedicalServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/medical_management/src/main/java/com/example/medical_management/service/medical/impl/MedicalServiceImpl.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2YQ4M3aqWoE3dlZJHGUBGkgFQfm" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "D:/0.CODEGYM/A1022I1-Repo-BE",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="da14d5ee-a204-458a-8e51-1e60bc6f420e" name="Changes" comment="" />
+      <created>1700444417746</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1700444417746</updated>
+      <workItem from="1700444419175" duration="17000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

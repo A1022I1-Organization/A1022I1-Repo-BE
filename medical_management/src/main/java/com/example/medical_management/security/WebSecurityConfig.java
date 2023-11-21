@@ -1,7 +1,7 @@
 package com.example.medical_management.security;
 
 
-import com.example.medical_management.service.account.imlp.JwtAccountDetailsService;
+import com.example.medical_management.service.account.impl.JwtAccountDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -54,27 +54,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
-//
-//        httpSecurity.cors().and().csrf().disable()
-//                .authorizeRequests()
-//                .antMatchers("/api/login", "/login", "/successOauth","/logout",
-//                        "/api/supply/list","/api/supply/getCategory","/api/supply/getUnit","/api/supply/getSupplier").permitAll()
 
-//                .antMatchers("/api/supply/**").hasAnyRole("EMPLOYEE","ADMIN")
-//                .antMatchers("/api/**").hasRole("ADMIN")
-//                .anyRequest().authenticated()
-//                .and()
-//                .csrf().disable();
-//        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
-//
+        httpSecurity.cors().and().csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/**").permitAll();
 
 
 
 
         httpSecurity.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/**").permitAll();
+                .antMatchers("/api/login", "/login", "/successOauth","/logout",
+                        "/api/supply/list","/api/supply/getCategory","/api/supply/getUnit","/api/supply/getSupplier").permitAll()
+                .antMatchers("/api/supply/**","/api/account/**","/api/getAccount/**").hasAnyRole("EMPLOYEE","ADMIN")
+                .antMatchers("/api/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
+                .and()
+                .csrf().disable();
+        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+
+
+//
+//        httpSecurity.cors().and().csrf().disable()
+//                .authorizeRequests()
+//                .antMatchers("/**").permitAll();
 
     }
 }

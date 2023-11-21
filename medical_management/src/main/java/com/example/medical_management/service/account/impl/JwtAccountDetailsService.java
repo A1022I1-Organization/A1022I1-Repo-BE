@@ -1,4 +1,4 @@
-package com.example.medical_management.service.account.imlp;
+package com.example.medical_management.service.account.impl;
 
 import com.example.medical_management.model.account.AccountRole;
 import com.example.medical_management.repository.account.AccountRoleRepository;

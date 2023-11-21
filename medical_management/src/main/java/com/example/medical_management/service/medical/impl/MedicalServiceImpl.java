@@ -1,5 +1,6 @@
 package com.example.medical_management.service.medical.impl;
 
+import com.example.medical_management.dto.MedicalSuppliesDto;
 import com.example.medical_management.model.medical_supplies.MedicalSupplies;
 import com.example.medical_management.repository.medical.IMedicalRepository;
 import com.example.medical_management.service.medical.IMedicalService;
@@ -8,7 +9,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
 import java.sql.Date;
+=======
+import java.util.Date;
+>>>>>>> 790b4db4c361eaa900f343af323ece58c02a5568
 import java.util.List;
 
 @Service
@@ -63,13 +68,18 @@ public class MedicalServiceImpl implements IMedicalService {
     }
 
     @Override
+    public void delete(MedicalSupplies medicalSupplies) {
+
+    }
+
+    @Override
     public void delete(long id) {
             medicalRepository.deleteById(id);
     }
 
     @Override
-    public List<MedicalSupplies> findExpiredSupplies() {
-        return medicalRepository.findExpiredSupplies();
+    public List<Object[]> findAllBetweenDays(String lastDateInput) {
+        return medicalRepository.findAllBetweenDays(lastDateInput);
     }
 
     @Override
@@ -78,9 +88,12 @@ public class MedicalServiceImpl implements IMedicalService {
     }
 
     @Override
-    public boolean checkExitsCode(String code) {
-        return medicalRepository.existsByCode(code);
+    public List<MedicalSupplies> findAllSupply() {
+        return medicalRepository.findAll();
     }
 
-
+    @Override
+    public MedicalSupplies getLastSupply() {
+        return medicalRepository.getLastSupply();
+    }
 }
