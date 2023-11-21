@@ -11,7 +11,7 @@ public class QuerySupplies {
 
     public static final String FIND_EXPIRY_SUPPLY = "SELECT * FROM medical_supplies WHERE :fromDate <= expiry <= :toDate AND delete_flag  = 0 ORDER BY expiry ASC";
 
-    public static final String FIND_SUPPLY_NAME = "SELECT * FROM medical_supplies WHERE name like '%:name%' AND delete_flag  = 0 ORDER BY expiry ASC";
+    public static final String FIND_SUPPLY_NAME = "SELECT * FROM medical_supplies WHERE name like CONCAT('%', :name, '%') AND delete_flag  = 0 ORDER BY expiry ASC";
 
     public static final String DELETE_SUPPLY = "UPDATE medical_supplies SET medical_supplies.delete_flag = 1 WHERE medical_supplies.medical_supplies_id = :supplyId";
 

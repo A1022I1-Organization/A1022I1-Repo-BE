@@ -55,9 +55,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
 
-        httpSecurity.cors().and().csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/**").permitAll();
+//        httpSecurity.cors().and().csrf().disable()
+//                .authorizeRequests()
+//                .antMatchers("/**").permitAll();
 
 
 
@@ -73,12 +73,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable();
         httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
-
-
-//
-//        httpSecurity.cors().and().csrf().disable()
-//                .authorizeRequests()
-//                .antMatchers("/**").permitAll();
 
     }
 }
