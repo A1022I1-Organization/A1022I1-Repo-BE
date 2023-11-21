@@ -142,35 +142,69 @@ public class RestMedicalController {
 
     @GetMapping("/oldSupplies")
     public ResponseEntity<Page<MedicalSupplies>> getOldSupplies(@RequestParam(defaultValue = "0") int page,
-                                                                @RequestParam(defaultValue = "") int size,
-                                                                @RequestParam(defaultValue = "") String valueSearch,
-                                                                @RequestParam(defaultValue = "") String dropdown) {
+                                                                @RequestParam(defaultValue = "") int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<MedicalSupplies> oldSupplies = null;
+        Page<MedicalSupplies> oldSupplies = medicalService.findOldSupplies(pageable);
 
-        switch (dropdown) {
-            case "Supplies":
-                oldSupplies = medicalService.findByName(pageable, valueSearch);
-                break;
-            case "Types":
-                oldSupplies = medicalService.findByType(pageable, Long.parseLong(valueSearch));
-                break;
-            case "Suppliers":
-                oldSupplies = medicalService.findBySupplier(pageable, Long.parseLong(valueSearch));
-                break;
-//            case "Expiry":
-//                oldSupplies = medicalService.findByDate(pageable, Date.parse(valueSearch), Date.parse(valueSearch));
-//                break;
-            default:
-                oldSupplies = medicalService.findOldSupplies(pageable);
-                break;
-        }
-
-        if (oldSupplies == null) {
+        if (oldSupplies.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(oldSupplies, HttpStatus.OK);
     }
+
+//    @GetMapping("/oldSupplies")
+//    public ResponseEntity<Page<MedicalSupplies>> getSupplyByName (@RequestParam(defaultValue = "0") int page,
+//                                                                  @RequestParam(defaultValue = "") int size,
+//                                                                  @RequestParam(name = "name") String nameSearch) {
+//        Pageable pageable = PageRequest.of(page, size);
+//        Page<MedicalSupplies> oldSupplies = medicalService.findByName(pageable, nameSearch);
+//
+//        if (oldSupplies.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        }
+//        return new ResponseEntity<>(oldSupplies, HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/oldSupplies")
+//    public ResponseEntity<Page<MedicalSupplies>> getSupplyByTypes (@RequestParam(defaultValue = "0") int page,
+//                                                                  @RequestParam(defaultValue = "") int size,
+//                                                                  @RequestParam(name = "typeId") long idSearch) {
+//        Pageable pageable = PageRequest.of(page, size);
+//        Page<MedicalSupplies> oldSupplies = medicalService.findByType(pageable, idSearch);
+//
+//        if (oldSupplies.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        }
+//        return new ResponseEntity<>(oldSupplies, HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/oldSupplies")
+//    public ResponseEntity<Page<MedicalSupplies>> getSupplyBySupplier (@RequestParam(defaultValue = "0") int page,
+//                                                                  @RequestParam(defaultValue = "") int size,
+//                                                                  @RequestParam(name = "supplierId") long supplierIdSearch) {
+//        Pageable pageable = PageRequest.of(page, size);
+//        Page<MedicalSupplies> oldSupplies = medicalService.findBySupplier(pageable, supplierIdSearch);
+//
+//        if (oldSupplies.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        }
+//        return new ResponseEntity<>(oldSupplies, HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/oldSupplies")
+//    public ResponseEntity<Page<MedicalSupplies>> getSupplyByDate (@RequestParam(defaultValue = "0") int page,
+//                                                                  @RequestParam(defaultValue = "") int size,
+//                                                                  @RequestParam(name = "fromDate") Date fromDateSearch,
+//                                                                  @RequestParam(name = "toDate") Date toDateSearch) {
+//        Pageable pageable = PageRequest.of(page, size);
+//        Page<MedicalSupplies> oldSupplies = medicalService.findByDate(pageable, fromDateSearch, toDateSearch);
+//
+//        if (oldSupplies.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        }
+//        return new ResponseEntity<>(oldSupplies, HttpStatus.OK);
+//    }
+
     @GetMapping("/list")
     public ResponseEntity<List<MedicalSupplies>> getPageSupplies(@RequestParam(name = "c",defaultValue = "") String category,
                                                                  @RequestParam(name = "p",defaultValue = "6") int page) {

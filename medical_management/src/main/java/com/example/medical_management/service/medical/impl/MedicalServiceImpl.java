@@ -9,11 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD
 import java.sql.Date;
-=======
-import java.util.Date;
->>>>>>> 790b4db4c361eaa900f343af323ece58c02a5568
 import java.util.List;
 
 @Service
