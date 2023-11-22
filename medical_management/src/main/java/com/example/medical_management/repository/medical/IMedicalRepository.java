@@ -44,15 +44,10 @@ public interface IMedicalRepository extends JpaRepository<MedicalSupplies, Long>
 //    @Query(value = QuerySupplies.GET_EXPIRED_SUPPLIES, nativeQuery = true)
 //    List<MedicalSupplies> findExpiredSupplies();
 
-    @Query(value = "SELECT * FROM medical_management.medical_supplies where category_id like concat ('%', :category ,'%') limit 0, :page ",nativeQuery = true )
 
-<<<<<<< HEAD
-//    @Query(value = "SELECT * FROM medical_management.medical_supplies where category_id like concat ('%',:category,'%')  limit 0,:page ",nativeQuery = true )
-    @Query(value = "SELECT ms FROM MedicalSupplies ms where ms.category.name like concat ('%',:category,'%') " )
+    @Query(value = "SELECT * FROM medical_management.medical_supplies where category_id like concat ('%',:category,'%') ",nativeQuery = true )
+//    @Query(value = "SELECT ms FROM MedicalSupplies ms where ms.category.id like concat ('%',:category,'%') " )
     List<MedicalSupplies> getAllListWithPage(@Param("category")String category ,  Pageable  sort );
-=======
-    List<MedicalSupplies> getAllListWithPage(@Param("category")String category,@Param("page")int page);
->>>>>>> d5f5950fd885376aa1e852ce1e35650d1dd3ae9b
 
     @Query(value = "SELECT * FROM medical_supplies ORDER BY medical_supplies_id DESC LIMIT 1",nativeQuery = true )
     MedicalSupplies getLastSupply();
