@@ -1,12 +1,12 @@
 package com.example.medical_management.service.account;
 
 import com.example.medical_management.model.account.Account;
-import com.example.medical_management.model.account.AccountRole;
 
 import java.util.List;
 
-public interface IAccountService {
-    void addNew(AccountRole accountRole);
+public interface AccountService {
+    Account addNew(Account account);
     Account getAccountByUsername(String username);
     List<Account> findAllAccount();
+    Boolean changePassword(String username,String password);
 }

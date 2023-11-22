@@ -6,7 +6,7 @@ import com.example.medical_management.model.medical_supplies.Category;
 import com.example.medical_management.model.medical_supplies.MedicalSupplies;
 import com.example.medical_management.model.medical_supplies.Supplier;
 import com.example.medical_management.model.medical_supplies.Unit;
-import com.example.medical_management.service.account.IAccountService;
+import com.example.medical_management.service.account.AccountService;
 import com.example.medical_management.service.medical.ICategoryService;
 import com.example.medical_management.service.medical.IMedicalService;
 import com.example.medical_management.service.medical.ISupplierService;
@@ -21,9 +21,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.*;
 
 @RestController
 @CrossOrigin("*")
@@ -43,7 +46,16 @@ public class RestMedicalController {
     private IUnitService unitService;
 
     @Autowired
-    private IAccountService accountService;
+    private AccountService accountService;
+
+    @GetMapping("/getAllSupply")
+    public ResponseEntity<List<MedicalSupplies>> getMedicalSupplies() {
+        List<MedicalSupplies> medicalSupplies = medicalService.findAllSupply();
+        if (medicalSupplies.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(medicalSupplies, HttpStatus.OK);
+    }
 
     @PostMapping("/add")
     public ResponseEntity<?> create(@RequestBody MedicalSuppliesDto medicalSuppliesDto,
@@ -130,15 +142,37 @@ public class RestMedicalController {
 
     @GetMapping("/oldSupplies")
     public ResponseEntity<Page<MedicalSupplies>> getOldSupplies(@RequestParam(defaultValue = "0") int page,
-                                                                @RequestParam(defaultValue = "5") int size) {
+                                                                @RequestParam(defaultValue = "") int size,
+                                                                @RequestParam(defaultValue = "") String valueSearch,
+                                                                @RequestParam(defaultValue = "") String dropdown) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<MedicalSupplies> oldSupplies = medicalService.findOldSupplies(pageable);
+        Page<MedicalSupplies> oldSupplies = null;
 
-        if (oldSupplies.isEmpty()) {
+        switch (dropdown) {
+            case "Tên vật tư":
+                oldSupplies = medicalService.findByName(pageable, valueSearch);
+                break;
+            case "Loại vật tư":
+                oldSupplies = medicalService.findByType(pageable, Long.parseLong(valueSearch));
+                break;
+            case "Nhà cung cấp":
+                oldSupplies = medicalService.findBySupplier(pageable, Long.parseLong(valueSearch));
+                break;
+            case "Hạn sử dụng":
+//                oldSupplies = medicalService.findByDate(pageable, Date.parse(valueSearch));
+                break;
+            default:
+                oldSupplies = medicalService.findOldSupplies(pageable);
+                break;
+        }
+
+        if (oldSupplies == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(oldSupplies, HttpStatus.OK);
     }
+
+
     @GetMapping("/list")
     public ResponseEntity<List<MedicalSupplies>> getPageSupplies(@RequestParam(name = "c",defaultValue = "") String category,
                                                                  @RequestParam(name = "p",defaultValue = "6") int page,
@@ -151,9 +185,10 @@ public class RestMedicalController {
         }
         return new ResponseEntity<>(oldSupplies, HttpStatus.OK);
     }
+
     @GetMapping("/newSupplies")
     public ResponseEntity<Page<MedicalSupplies>> getNewSupplies(@RequestParam(defaultValue = "0") int page,
-                                                                @RequestParam(defaultValue = "5") int size) {
+                                                                @RequestParam(defaultValue = "") int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<MedicalSupplies> newSupplies = medicalService.findNewSupplies(pageable);
 
@@ -163,13 +198,15 @@ public class RestMedicalController {
         return new ResponseEntity<>(newSupplies, HttpStatus.OK);
     }
 
+
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         MedicalSupplies medicalSupplies = medicalService.findByMedical(id);
         if (medicalSupplies==null){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }else {
-            medicalService.delete(medicalSupplies);
+            medicalService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }
@@ -185,12 +222,35 @@ public class RestMedicalController {
         }
     }
 
-    @GetMapping("/expired-supplies")
-    public ResponseEntity<List<MedicalSupplies>> getExpriredSupplies() {
-        List<MedicalSupplies> expiredSupplies = medicalService.findExpiredSupplies();
-        if (expiredSupplies == null) {
+//    @GetMapping("/statistic-supplies/{lastDate}")
+//    public ResponseEntity<List<MedicalSupplies>> getStatisticSupplies(@PathVariable String lastDate) {
+//        List<Object[]> result = medicalService.findAllBetweenDays(lastDate);
+//        List<MedicalSupplies> suppliesList = new ArrayList<>();
+//
+//        for (Object[] row : result) {
+//            MedicalSupplies item = new MedicalSupplies();
+//
+//            item.setCode((String) row[0]);
+//            item.setExpiry((Date) row[1]);
+//            item.setImportDate((Date) row[2]);
+//            item.setName((String) row[3]);
+//            item.setQuantity((String) row[4]);
+//
+//            suppliesList.add(item);
+//        }
+//
+//        if (suppliesList == null || suppliesList.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        }
+//        return new ResponseEntity<>(suppliesList, HttpStatus.OK);
+//    }
+
+    @GetMapping("/lastSupply")
+    public ResponseEntity<?> getLastSupply() {
+        MedicalSupplies lastSupply = medicalService.getLastSupply();
+        if (lastSupply == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(expiredSupplies, HttpStatus.OK);
+        return new ResponseEntity<>(lastSupply, HttpStatus.OK);
     }
 }

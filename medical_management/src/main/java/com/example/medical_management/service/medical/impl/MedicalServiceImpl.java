@@ -1,5 +1,6 @@
 package com.example.medical_management.service.medical.impl;
 
+import com.example.medical_management.dto.MedicalSuppliesDto;
 import com.example.medical_management.model.medical_supplies.MedicalSupplies;
 import com.example.medical_management.repository.medical.IMedicalRepository;
 import com.example.medical_management.service.medical.IMedicalService;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -42,18 +45,49 @@ public class MedicalServiceImpl implements IMedicalService {
     }
 
     @Override
+    public Page<MedicalSupplies> findByType(Pageable pageable, long id) {
+        return medicalRepository.findByType(pageable, id);
+    }
+
+    @Override
+    public Page<MedicalSupplies> findBySupplier(Pageable pageable, long id) {
+        return medicalRepository.findBySupplier(pageable, id);
+    }
+
+    @Override
+    public Page<MedicalSupplies> findByDate(Pageable pageable, Date fromDate, Date toDate) {
+        return medicalRepository.findByExpiry(pageable, fromDate, toDate);
+    }
+
+    @Override
+    public Page<MedicalSupplies> findByName(Pageable pageable, String name) {
+        return medicalRepository.findByName(pageable, name);
+    }
+
+
+    @Override
     public MedicalSupplies findByMedical(Long id) {
         return medicalRepository.findById(id).orElse(null);
     }
 
     @Override
     public void delete(MedicalSupplies medicalSupplies) {
-        medicalRepository.delete(medicalSupplies);
+
+    }
+
+    @Override
+    public void delete(long id) {
+            medicalRepository.deleteById(id);
     }
 
     @Override
     public List<MedicalSupplies> findExpiredSupplies() {
-        return medicalRepository.findExpiredSupplies();
+        return null;
+    }
+
+    @Override
+    public List<Object[]> findAllBetweenDays(String lastDateInput) {
+        return medicalRepository.findAllBetweenDays(lastDateInput);
     }
 
     @Override
@@ -70,8 +104,21 @@ public class MedicalServiceImpl implements IMedicalService {
 
     @Override
     public boolean checkExitsCode(String code) {
-        return medicalRepository.existsByCode(code);
+        return false;
     }
 
+    @Override
+    public List<MedicalSupplies> getAllListWithPage(String category, int page) {
+        return null;
+    }
 
+    @Override
+    public List<MedicalSupplies> findAllSupply() {
+        return medicalRepository.findAll();
+    }
+
+    @Override
+    public MedicalSupplies getLastSupply() {
+        return medicalRepository.getLastSupply();
+    }
 }
