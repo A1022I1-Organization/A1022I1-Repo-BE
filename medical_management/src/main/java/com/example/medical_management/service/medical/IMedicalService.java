@@ -18,6 +18,6 @@ public interface IMedicalService {
     void delete (MedicalSupplies medicalSupplies);
 
     List<MedicalSupplies> findExpiredSupplies();
-    List<MedicalSupplies> getAllListWithPage(String category, int page);
+    List<MedicalSupplies> getAllListWithPage(String category, int page, String nameSort, String priceSort);
     boolean checkExitsCode(String code);
 }
