@@ -25,7 +25,11 @@ public interface IMedicalService {
     List<Object[]> findAllBetweenDays(String lastDateInput);
     void delete (long id);
 
+    List<MedicalSupplies> findExpiredSupplies();
+    List<MedicalSupplies> getAllListWithPage(String category, int page, String nameSort, String priceSort);
+    boolean checkExitsCode(String code);
     List<MedicalSupplies> getAllListWithPage(String category, int page);
     List<MedicalSupplies> findAllSupply();
     MedicalSupplies getLastSupply();
+
 }

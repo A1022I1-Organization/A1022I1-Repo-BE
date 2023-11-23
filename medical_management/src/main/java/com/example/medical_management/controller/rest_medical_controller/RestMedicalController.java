@@ -175,8 +175,10 @@ public class RestMedicalController {
 
     @GetMapping("/list")
     public ResponseEntity<List<MedicalSupplies>> getPageSupplies(@RequestParam(name = "c",defaultValue = "") String category,
-                                                                 @RequestParam(name = "p",defaultValue = "6") int page) {
-         List<MedicalSupplies> oldSupplies = medicalService.getAllListWithPage(category,page);
+                                                                 @RequestParam(name = "p",defaultValue = "6") int page,
+                                                                 @RequestParam(name = "ns",defaultValue = "asc") String nameSort,
+                                                                 @RequestParam(name = "ps",defaultValue = "asc") String priceSort) {
+         List<MedicalSupplies> oldSupplies = medicalService.getAllListWithPage(category,page, nameSort,priceSort);
 
         if (oldSupplies.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
