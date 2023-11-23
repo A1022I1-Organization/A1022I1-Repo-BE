@@ -16,9 +16,9 @@ public interface IMedicalService {
     MedicalSupplies update(MedicalSupplies medical);
     Page<MedicalSupplies> findOldSupplies (Pageable pageable);
     Page<MedicalSupplies> findNewSupplies (Pageable pageable);
-    Page<MedicalSupplies> findByType (Pageable pageable, long id);
-    Page<MedicalSupplies> findBySupplier (Pageable pageable, long id);
-    Page<MedicalSupplies> findByDate (Pageable pageable, Date fromDate, Date toDate);
+    Page<MedicalSupplies> findByType (Pageable pageable, String type);
+    Page<MedicalSupplies> findBySupplier (Pageable pageable, String supplier);
+    Page<MedicalSupplies> findByDate (Pageable pageable, String fromDate, String toDate);
     Page<MedicalSupplies> findByName (Pageable pageable, String name);
     MedicalSupplies findByMedical(Long id);
     void delete (MedicalSupplies medicalSupplies);

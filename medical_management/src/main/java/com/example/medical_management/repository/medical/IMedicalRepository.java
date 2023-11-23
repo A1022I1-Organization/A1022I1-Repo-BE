@@ -30,16 +30,16 @@ public interface IMedicalRepository extends JpaRepository<MedicalSupplies, Long>
     void deleteById(@Param("supplyId") long id);
 
     @Query(value = QuerySupplies.FIND_SUPPLY_TYPE, nativeQuery = true)
-    Page<MedicalSupplies> findByType(Pageable pageable, @Param("typeId") long id);
+    Page<MedicalSupplies> findByType(Pageable pageable, @Param("type") String type);
 
     @Query(value = QuerySupplies.FIND_SUPPLY_NAME, nativeQuery = true)
     Page<MedicalSupplies> findByName(Pageable pageable, @Param("name") String name);
 
     @Query(value = QuerySupplies.FIND_SUPPLIER, nativeQuery = true)
-    Page<MedicalSupplies> findBySupplier(Pageable pageable, @Param("supplierId") long id);
+    Page<MedicalSupplies> findBySupplier(Pageable pageable, @Param("supplier") String supplier);
 
     @Query(value = QuerySupplies.FIND_EXPIRY_SUPPLY, nativeQuery = true)
-    Page<MedicalSupplies> findByExpiry(Pageable pageable, @Param("fromDate") Date fromDate, @Param("toDate") Date toDate);
+    Page<MedicalSupplies> findByExpiry(Pageable pageable, @Param("fromDate") String fromDate, @Param("toDate") String toDate);
 
 //    @Query(value = QuerySupplies.GET_EXPIRED_SUPPLIES, nativeQuery = true)
 //    List<MedicalSupplies> findExpiredSupplies();

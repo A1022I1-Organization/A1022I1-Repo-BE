@@ -153,13 +153,13 @@ public class RestMedicalController {
                 oldSupplies = medicalService.findByName(pageable, valueSearch);
                 break;
             case "category":
-                oldSupplies = medicalService.findByType(pageable, Long.parseLong(valueSearch));
+                oldSupplies = medicalService.findByType(pageable, valueSearch);
                 break;
             case "supplier":
-                oldSupplies = medicalService.findBySupplier(pageable, Long.parseLong(valueSearch));
+                oldSupplies = medicalService.findBySupplier(pageable, valueSearch);
                 break;
             case "expiry":
-//                oldSupplies = medicalService.findByDate(pageable, Date.parse(valueSearch));
+                oldSupplies = medicalService.findByDate(pageable, valueSearch, valueSearch);
                 break;
             default:
                 oldSupplies = medicalService.findOldSupplies(pageable);
