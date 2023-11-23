@@ -45,17 +45,17 @@ public class MedicalServiceImpl implements IMedicalService {
     }
 
     @Override
-    public Page<MedicalSupplies> findByType(Pageable pageable, long id) {
-        return medicalRepository.findByType(pageable, id);
+    public Page<MedicalSupplies> findByType(Pageable pageable, String type) {
+        return medicalRepository.findByType(pageable, type);
     }
 
     @Override
-    public Page<MedicalSupplies> findBySupplier(Pageable pageable, long id) {
-        return medicalRepository.findBySupplier(pageable, id);
+    public Page<MedicalSupplies> findBySupplier(Pageable pageable, String supplier) {
+        return medicalRepository.findBySupplier(pageable, supplier);
     }
 
     @Override
-    public Page<MedicalSupplies> findByDate(Pageable pageable, Date fromDate, Date toDate) {
+    public Page<MedicalSupplies> findByDate(Pageable pageable, String fromDate, String toDate) {
         return medicalRepository.findByExpiry(pageable, fromDate, toDate);
     }
 

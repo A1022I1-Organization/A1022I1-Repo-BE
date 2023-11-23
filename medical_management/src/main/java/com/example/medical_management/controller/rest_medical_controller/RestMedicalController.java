@@ -149,17 +149,17 @@ public class RestMedicalController {
         Page<MedicalSupplies> oldSupplies = null;
 
         switch (dropdown) {
-            case "Tên vật tư":
+            case "name":
                 oldSupplies = medicalService.findByName(pageable, valueSearch);
                 break;
-            case "Loại vật tư":
-                oldSupplies = medicalService.findByType(pageable, Long.parseLong(valueSearch));
+            case "category":
+                oldSupplies = medicalService.findByType(pageable, valueSearch);
                 break;
-            case "Nhà cung cấp":
-                oldSupplies = medicalService.findBySupplier(pageable, Long.parseLong(valueSearch));
+            case "supplier":
+                oldSupplies = medicalService.findBySupplier(pageable, valueSearch);
                 break;
-            case "Hạn sử dụng":
-//                oldSupplies = medicalService.findByDate(pageable, Date.parse(valueSearch));
+            case "expiry":
+                oldSupplies = medicalService.findByDate(pageable, valueSearch, valueSearch);
                 break;
             default:
                 oldSupplies = medicalService.findOldSupplies(pageable);
