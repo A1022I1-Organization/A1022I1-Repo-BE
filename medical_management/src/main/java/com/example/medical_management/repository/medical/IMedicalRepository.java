@@ -5,6 +5,7 @@ import com.example.medical_management.dto.MedicalSuppliesDto;
 import com.example.medical_management.model.medical_supplies.MedicalSupplies;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,8 +13,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.parameters.P;
 
 import java.sql.Date;
-import java.util.List;
-
 import java.util.List;
 
 public interface IMedicalRepository extends JpaRepository<MedicalSupplies, Long> {
@@ -31,23 +30,24 @@ public interface IMedicalRepository extends JpaRepository<MedicalSupplies, Long>
     void deleteById(@Param("supplyId") long id);
 
     @Query(value = QuerySupplies.FIND_SUPPLY_TYPE, nativeQuery = true)
-    Page<MedicalSupplies> findByType(Pageable pageable, @Param("typeId") long id);
+    Page<MedicalSupplies> findByType(Pageable pageable, @Param("type") String type);
 
     @Query(value = QuerySupplies.FIND_SUPPLY_NAME, nativeQuery = true)
     Page<MedicalSupplies> findByName(Pageable pageable, @Param("name") String name);
 
     @Query(value = QuerySupplies.FIND_SUPPLIER, nativeQuery = true)
-    Page<MedicalSupplies> findBySupplier(Pageable pageable, @Param("supplierId") long id);
+    Page<MedicalSupplies> findBySupplier(Pageable pageable, @Param("supplier") String supplier);
 
     @Query(value = QuerySupplies.FIND_EXPIRY_SUPPLY, nativeQuery = true)
-    Page<MedicalSupplies> findByExpiry(Pageable pageable, @Param("fromDate") Date fromDate, @Param("toDate") Date toDate);
+    Page<MedicalSupplies> findByExpiry(Pageable pageable, @Param("fromDate") String fromDate, @Param("toDate") String toDate);
 
 //    @Query(value = QuerySupplies.GET_EXPIRED_SUPPLIES, nativeQuery = true)
 //    List<MedicalSupplies> findExpiredSupplies();
 
-    @Query(value = "SELECT * FROM medical_management.medical_supplies where category_id like concat ('%', :category ,'%') limit 0, :page ",nativeQuery = true )
 
-    List<MedicalSupplies> getAllListWithPage(@Param("category")String category,@Param("page")int page);
+    @Query(value = "SELECT * FROM medical_management.medical_supplies where category_id like concat ('%',:category,'%') ",nativeQuery = true )
+//    @Query(value = "SELECT ms FROM MedicalSupplies ms where ms.category.id like concat ('%',:category,'%') " )
+    List<MedicalSupplies> getAllListWithPage(@Param("category")String category ,  Pageable  sort );
 
     @Query(value = "SELECT * FROM medical_supplies ORDER BY medical_supplies_id DESC LIMIT 1",nativeQuery = true )
     MedicalSupplies getLastSupply();
