@@ -23,6 +23,8 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     @Transactional
     void changePassword(@Param("username") String username,@Param("password") String password);
 
+
+
 //    @Query(value = AccountQueryDb.CREATE_NEW_ACCOUNT, nativeQuery = true)
 //    void createNewAccount(@Param("account") Account account);
 }

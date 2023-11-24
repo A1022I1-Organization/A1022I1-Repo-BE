@@ -178,7 +178,7 @@ public class RestMedicalController {
                                                                  @RequestParam(name = "p",defaultValue = "6") int page,
                                                                  @RequestParam(name = "ns",defaultValue = "asc") String nameSort,
                                                                  @RequestParam(name = "ps",defaultValue = "asc") String priceSort) {
-         List<MedicalSupplies> oldSupplies = medicalService.getAllListWithPage(category,page, nameSort,priceSort);
+        List<MedicalSupplies> oldSupplies = medicalService.getAllListWithPage(category,page, nameSort,priceSort);
 
         if (oldSupplies.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
