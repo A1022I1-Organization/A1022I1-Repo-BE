@@ -17,7 +17,7 @@ public interface IMedicalService {
     Page<MedicalSupplies> findOldSupplies (Pageable pageable);
     Page<MedicalSupplies> findNewSupplies (Pageable pageable);
     Page<MedicalSupplies> findByType (Pageable pageable, String type);
-    Page<MedicalSupplies> findBySupplier (Pageable pageable, String supplier);
+    Page<MedicalSupplies> findBySupplier (Pageable pageable, String type);
     Page<MedicalSupplies> findByDate (Pageable pageable, String fromDate, String toDate);
     Page<MedicalSupplies> findByName (Pageable pageable, String name);
     MedicalSupplies findByMedical(Long id);
