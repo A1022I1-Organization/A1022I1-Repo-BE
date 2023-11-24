@@ -23,7 +23,7 @@ public class EncrytedPasswordUtils {
         System.out.println("Encryted Password: " + encrytedPassword);
 
         // Kiểm tra mật khẩu
-        System.out.println("Is password valid? " + checkPassword("123456", "$2a$10$E62vxcjIUVoa9VPPzOKECexnGL4InAG3OPVDstBYsRk3lqcHCwCbW"));
+        System.out.println("Is password valid? " + checkPassword("123", "$2a$10$iFzuka6g2q9CyYat.2mc.MQ1.B/2ZJdCcyZONsYy.YrVWp2EMvga"));
     }
 
 }

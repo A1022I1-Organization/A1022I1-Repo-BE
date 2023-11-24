@@ -53,11 +53,13 @@ public class RestAuthenticationController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Tên đăng nhập hoặc mật khẩu không đúng.");
         }
     }
+
     @GetMapping(value = "/logout")
     public ResponseEntity<?> logout(HttpServletRequest request) {
         request.getSession().invalidate();
         return ResponseEntity.ok(HttpStatus.OK);
     }
+
     @GetMapping("/user")
     public Principal user(Principal principal) {
 //        System.out.println("username : " + principal.getName());

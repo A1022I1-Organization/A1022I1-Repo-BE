@@ -7,6 +7,7 @@ public class AccountQueryDb {
         public static final String GET_ACCOUNT_BY_USERNAME =  "  SELECT * FROM account WHERE account.username = :username ;";
 
     public static final String CHANGE_PASSWORD_ACCOUNT = "UPDATE account SET account.password = :password WHERE account.username = :username" ;
+    public static final String CONFORM_PASSWORD = "SELECT * FROM account where account.password = :password";
 
 //    public static final String CREATE_NEW_ACCOUNT = "INSERT INTO account (address, birthday, employee_code, employee_name, gender, gmail, id_card, img_link, password, phone, username)\n" +
 //            "VALUES (:#{#account.address}, :#{#account.birthday}, :#{#account.employeeCode}, :#{#account.employeeName}, :#{#account.gender}, \" +\n" +

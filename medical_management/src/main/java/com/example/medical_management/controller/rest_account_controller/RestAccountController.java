@@ -1,4 +1,5 @@
 package com.example.medical_management.controller.rest_account_controller;
+
 import com.example.medical_management.dto.AccountDto;
 import com.example.medical_management.email.EmailService;
 import com.example.medical_management.model.account.Account;
@@ -83,17 +84,31 @@ public class RestAccountController {
     @PostMapping("/change-password")
     public ResponseEntity<?> changePassword(@RequestBody AccountRequest accountRequest) {
 
-      String newPassword = EncrytedPasswordUtils.encrytePassword(accountRequest.getPassword());
+        String newPassword = EncrytedPasswordUtils.encrytePassword(accountRequest.getPassword());
 
-      try{
-         Boolean check = accountService.changePassword(accountRequest.getUsername(),newPassword);
-          return new ResponseEntity<>(check,HttpStatus.OK);
+        try {
+            Boolean check = accountService.changePassword(accountRequest.getUsername(), newPassword);
+            return new ResponseEntity<>(check, HttpStatus.OK);
 
-      }catch (Exception e){
-          System.out.println(e.getMessage());
-          return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-      }
+        }
+    }
+
+    @PostMapping("/conform-password")
+    public ResponseEntity<?> conformPassword(@RequestBody AccountRequest accountRequest) {
+
+        Account account = accountService.getAccountByUsername(accountRequest.getUsername());
+        Boolean check = EncrytedPasswordUtils.checkPassword(accountRequest.getPassword(), account.getPassword());
+        if (check) {
+            return new ResponseEntity<>(check, HttpStatus.OK);
+
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        }
     }
 
 }

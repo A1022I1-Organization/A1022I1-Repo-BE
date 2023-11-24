@@ -149,7 +149,7 @@ public class RestMedicalController {
         Page<MedicalSupplies> oldSupplies = null;
 
         switch (dropdown) {
-            case "Tên vật tư":
+            case "tenVatTu":
                 oldSupplies = medicalService.findByName(pageable, valueSearch);
                 break;
             case "Loại vật tư":
@@ -173,9 +173,9 @@ public class RestMedicalController {
     }
 
     @GetMapping("/oldSupplies/searchName")
-    public ResponseEntity<Page<MedicalSupplies>> getSupplyByName (@RequestParam(defaultValue = "0") int page,
-                                                                  @RequestParam(defaultValue = "") int size,
-                                                                  @RequestParam(name = "name") String nameSearch) {
+    public ResponseEntity<Page<MedicalSupplies>> getSupplyByName(@RequestParam(defaultValue = "0") int page,
+                                                                 @RequestParam(defaultValue = "") int size,
+                                                                 @RequestParam(name = "name") String nameSearch) {
         Pageable pageable = PageRequest.of(page, size);
         Page<MedicalSupplies> oldSupplies = medicalService.findByName(pageable, nameSearch);
 
@@ -186,7 +186,7 @@ public class RestMedicalController {
     }
 
     @GetMapping("/oldSupplies/searchType")
-    public ResponseEntity<Page<MedicalSupplies>> getSupplyByTypes (@RequestParam(defaultValue = "0") int page,
+    public ResponseEntity<Page<MedicalSupplies>> getSupplyByTypes(@RequestParam(defaultValue = "0") int page,
                                                                   @RequestParam(defaultValue = "") int size,
                                                                   @RequestParam(name = "typeId") long idSearch) {
         Pageable pageable = PageRequest.of(page, size);
@@ -199,9 +199,9 @@ public class RestMedicalController {
     }
 
     @GetMapping("/oldSupplies/searchSupplier")
-    public ResponseEntity<Page<MedicalSupplies>> getSupplyBySupplier (@RequestParam(defaultValue = "0") int page,
-                                                                  @RequestParam(defaultValue = "") int size,
-                                                                  @RequestParam(name = "supplierId") long supplierIdSearch) {
+    public ResponseEntity<Page<MedicalSupplies>> getSupplyBySupplier(@RequestParam(defaultValue = "0") int page,
+                                                                     @RequestParam(defaultValue = "") int size,
+                                                                     @RequestParam(name = "supplierId") long supplierIdSearch) {
         Pageable pageable = PageRequest.of(page, size);
         Page<MedicalSupplies> oldSupplies = medicalService.findBySupplier(pageable, supplierIdSearch);
 
@@ -212,10 +212,10 @@ public class RestMedicalController {
     }
 
     @GetMapping("/oldSupplies/searchDate")
-    public ResponseEntity<Page<MedicalSupplies>> getSupplyByDate (@RequestParam(defaultValue = "0") int page,
-                                                                  @RequestParam(defaultValue = "") int size,
-                                                                  @RequestParam(name = "fromDate") Date fromDateSearch,
-                                                                  @RequestParam(name = "toDate") Date toDateSearch) {
+    public ResponseEntity<Page<MedicalSupplies>> getSupplyByDate(@RequestParam(defaultValue = "0") int page,
+                                                                 @RequestParam(defaultValue = "") int size,
+                                                                 @RequestParam(name = "fromDate") Date fromDateSearch,
+                                                                 @RequestParam(name = "toDate") Date toDateSearch) {
         Pageable pageable = PageRequest.of(page, size);
         Page<MedicalSupplies> oldSupplies = medicalService.findByDate(pageable, fromDateSearch, toDateSearch);
 
@@ -226,9 +226,9 @@ public class RestMedicalController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<MedicalSupplies>> getPageSupplies(@RequestParam(name = "c",defaultValue = "") String category,
-                                                                 @RequestParam(name = "p",defaultValue = "6") int page) {
-         List<MedicalSupplies> oldSupplies = medicalService.getAllListWithPage(category,page);
+    public ResponseEntity<List<MedicalSupplies>> getPageSupplies(@RequestParam(name = "c", defaultValue = "") String category,
+                                                                 @RequestParam(name = "p", defaultValue = "6") int page) {
+        List<MedicalSupplies> oldSupplies = medicalService.getAllListWithPage(category, page);
 
         if (oldSupplies.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -249,13 +249,12 @@ public class RestMedicalController {
     }
 
 
-
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         MedicalSupplies medicalSupplies = medicalService.findByMedical(id);
-        if (medicalSupplies==null){
+        if (medicalSupplies == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }else {
+        } else {
             medicalService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
@@ -264,9 +263,9 @@ public class RestMedicalController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getDetail(@PathVariable Long id) {
         MedicalSupplies supply = medicalService.findByMedical(id);
-        if (supply==null){
+        if (supply == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }else {
+        } else {
             medicalService.findByMedical(id);
             return new ResponseEntity<>(supply, HttpStatus.OK);
         }
